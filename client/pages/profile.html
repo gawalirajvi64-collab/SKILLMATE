@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Profile | SkillBridge</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <header>
+        <nav class="navbar">
+
+            <div class="logo">
+                SkillBridge
+            </div>
+
+            <div class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="#">Explore Skills</a>
+                <a href="profile.html">My Profile</a>
+                <a href="sessions.html">My Sessions</a>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="login-btn" id="logoutBtn">
+                    Logout
+                </button>
+            </div>
+
+        </nav>
+    </header>
+
+
+    <!-- Profile Section -->
+    <main>
+
+        <section class="profile-section">
+
+            <div class="profile-heading">
+                <p class="tagline">YOUR LEARNING JOURNEY</p>
+
+                <h1>My Profile</h1>
+
+                <p>
+                    Manage your information and build your SkillBridge identity.
+                </p>
+            </div>
+
+
+            <!-- Profile Information -->
+            <div class="profile-card">
+
+                <div class="profile-top">
+                    <div class="profile-avatar" id="profileAvatar">
+                        S
+                    </div>
+
+                    <div>
+                        <h2 id="displayName">Loading...</h2>
+                        <p id="displayCollege"></p>
+                    </div>
+                </div>
+
+
+                <!-- Profile Completion -->
+                <div class="completion-section">
+
+                    <div class="completion-info">
+                        <span>Profile Completion</span>
+                        <span id="completionText">0%</span>
+                    </div>
+
+                    <div class="progress-track">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+
+                </div>
+
+
+                <!-- Edit Profile Form -->
+                <form id="profileForm">
+
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" required minlength="2">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="college">College</label>
+                        <input type="text" id="college" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="department">Department</label>
+                        <input type="text" id="department" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="yearOfStudy">Year of Study</label>
+
+                        <select id="yearOfStudy" required>
+                            <option value="">Select Year</option>
+                            <option value="1">First Year</option>
+                            <option value="2">Second Year</option>
+                            <option value="3">Third Year</option>
+                            <option value="4">Fourth Year</option>
+                            <option value="5">Fifth Year</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bio">About Me</label>
+                        <textarea
+                            id="bio"
+                            rows="4"
+                            maxlength="300"
+                            placeholder="Tell other students about yourself..."
+                        ></textarea>
+                    </div>
+
+
+                    <p id="message"></p>
+
+                    <button type="submit" class="register-btn" id="saveBtn">
+                        Save Profile
+                    </button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="../js/profile.js"></script>
+
+</body>
+
+</html>

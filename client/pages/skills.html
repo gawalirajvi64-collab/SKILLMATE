@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Skills | SkillBridge</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <header>
+        <nav class="navbar">
+
+            <div class="logo">
+                SkillBridge
+            </div>
+
+            <div class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="skills.html">My Skills</a>
+                <a href="profile.html">My Profile</a>
+                <a href="sessions.html">My Sessions</a>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="login-btn" id="logoutBtn">
+                    Logout
+                </button>
+            </div>
+
+        </nav>
+    </header>
+
+
+    <!-- My Skills Section -->
+    <main>
+
+        <section class="profile-section">
+
+            <div class="profile-heading">
+
+                <p class="tagline">SHARE WHAT YOU KNOW</p>
+
+                <h1>My Skills</h1>
+
+                <p>
+                    Add skills you can teach and skills you want to learn.
+                    Connect with students and grow together.
+                </p>
+
+            </div>
+
+
+            <!-- Add Skill Form -->
+            <div class="profile-card">
+
+                <h2>Add a New Skill</h2>
+
+                <form id="skillForm">
+
+                    <div class="form-group">
+
+                        <label for="skillSelect">Select Skill</label>
+
+                        <select id="skillSelect" required>
+                            <option value="">Loading skills...</option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="skillType">I want to</label>
+
+                        <select id="skillType" required>
+                            <option value="">Select Type</option>
+                            <option value="teach">Teach this skill</option>
+                            <option value="learn">Learn this skill</option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="proficiency">Proficiency Level</label>
+
+                        <select id="proficiency" required>
+                            <option value="">Select Level</option>
+                            <option value="beginner">Beginner</option>
+                            <option value="intermediate">Intermediate</option>
+                            <option value="advanced">Advanced</option>
+                        </select>
+
+                    </div>
+
+
+                    <p id="skillMessage"></p>
+
+                    <button type="submit" class="register-btn" id="addSkillBtn">
+                        Add Skill
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <!-- Selected Skills -->
+            <div class="profile-card" style="margin-top: 30px;">
+
+                <h2>My Selected Skills</h2>
+
+                <div id="mySkillsList">
+
+                    <p>Loading your skills...</p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="../js/skills.js"></script>
+
+</body>
+
+</html>

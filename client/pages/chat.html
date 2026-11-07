@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Messages | SkillBridge</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar">
+
+            <div class="logo">
+                SkillBridge
+            </div>
+
+            <div class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="matches.html">Discover Matches</a>
+                <a href="connections.html">My Connections</a>
+                <a href="chat.html">Messages</a>
+                <a href="availability.html">Availability</a>
+                <a href="sessions.html">My Sessions</a>
+                <a href="profile.html">My Profile</a>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="login-btn" id="logoutBtn">
+                    Logout
+                </button>
+            </div>
+
+        </nav>
+    </header>
+
+    <main>
+
+        <section class="profile-section">
+
+            <div class="profile-heading">
+
+                <p class="tagline">STAY CONNECTED</p>
+
+                <h1>Messages</h1>
+
+                <p>
+                    Communicate with your learning partners
+                    and exchange knowledge in real time.
+                </p>
+
+            </div>
+
+            <div class="chat-container">
+
+                <div class="conversation-sidebar">
+
+                    <h2>Conversations</h2>
+
+                    <div id="conversationList">
+                        Loading conversations...
+                    </div>
+
+                </div>
+
+                <div class="chat-window">
+
+                    <div class="chat-header" id="chatHeader">
+                        <h2>Select a conversation</h2>
+                        <p>Your messages will appear here.</p>
+                    </div>
+
+                    <div class="messages-area" id="messagesArea">
+                        <p>Select a student to start chatting.</p>
+                    </div>
+
+                    <form class="message-form" id="messageForm">
+
+                        <input
+                            type="text"
+                            id="messageInput"
+                            placeholder="Type your message..."
+                            maxlength="2000"
+                            disabled
+                            required
+                        >
+
+                        <button
+                            type="submit"
+                            class="login-btn"
+                            id="sendMessageBtn"
+                            disabled
+                        >
+                            Send
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="../js/chat.js"></script>
+
+</body>
+
+</html>

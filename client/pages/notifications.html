@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Notifications | SkillBridge</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar">
+
+            <div class="logo">SkillBridge</div>
+
+            <div class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="matches.html">Discover Matches</a>
+                <a href="connections.html">My Connections</a>
+                <a href="sessions.html">My Sessions</a>
+                <a href="progress.html">My Progress</a>
+                <a href="profile.html">My Profile</a>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="login-btn" id="logoutBtn">
+                    Logout
+                </button>
+            </div>
+
+        </nav>
+    </header>
+
+    <main>
+
+        <section class="profile-section">
+
+            <div class="profile-heading">
+
+                <p class="tagline">STAY UPDATED</p>
+
+                <h1>Notifications</h1>
+
+                <p>
+                    Keep track of your connection requests,
+                    learning sessions and important updates.
+                </p>
+
+            </div>
+
+            <div class="profile-card">
+
+                <h2>
+                    Unread Notifications:
+                    <span id="unreadCount">0</span>
+                </h2>
+
+            </div>
+
+            <div class="matches-container">
+
+                <h2>All Notifications</h2>
+
+                <div id="notificationList">
+                    Loading notifications...
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="../js/notifications.js"></script>
+
+</body>
+
+</html>

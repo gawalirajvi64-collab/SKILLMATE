@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Connections | SkillBridge</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar">
+
+            <div class="logo">
+                SkillBridge
+            </div>
+
+            <div class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="skills.html">My Skills</a>
+                <a href="matches.html">Discover Matches</a>
+                <a href="connections.html">My Connections</a>
+                <a href="chat.html">Messages</a>
+                <a href="availability.html">Availability</a>
+                <a href="sessions.html">My Sessions</a>
+                <a href="profile.html">My Profile</a>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="login-btn" id="logoutBtn">
+                    Logout
+                </button>
+            </div>
+
+        </nav>
+    </header>
+
+    <main>
+
+        <section class="profile-section">
+
+            <div class="profile-heading">
+
+                <p class="tagline">BUILD YOUR LEARNING NETWORK</p>
+
+                <h1>My Connections</h1>
+
+                <p>
+                    Manage your learning partners and
+                    build meaningful connections with students.
+                </p>
+
+            </div>
+
+            <div class="profile-card match-summary">
+
+                <div>
+                    <h2 id="connectionCount">0</h2>
+                    <p>Total Connections</p>
+                </div>
+
+                <div>
+                    <h2 id="pendingCount">0</h2>
+                    <p>Pending Requests</p>
+                </div>
+
+                <div>
+                    <h2 id="acceptedCount">0</h2>
+                    <p>Accepted Connections</p>
+                </div>
+
+            </div>
+
+            <div class="matches-container">
+
+                <h2>Received Requests</h2>
+
+                <div id="receivedRequests">
+                    <p>Loading requests...</p>
+                </div>
+
+            </div>
+
+            <div class="matches-container">
+
+                <h2>Sent Requests</h2>
+
+                <div id="sentRequests">
+                    <p>Loading requests...</p>
+                </div>
+
+            </div>
+
+            <div class="matches-container">
+
+                <h2>My Accepted Connections</h2>
+
+                <div id="acceptedConnections">
+                    <p>Loading connections...</p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="../js/connections.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,175 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Sessions | SkillBridge</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar">
+
+            <div class="logo">
+                SkillBridge
+            </div>
+
+            <div class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="skills.html">My Skills</a>
+                <a href="matches.html">Discover Matches</a>
+                <a href="connections.html">My Connections</a>
+                <a href="chat.html">Messages</a>
+                <a href="availability.html">Availability</a>
+                <a href="sessions.html">My Sessions</a>
+                <a href="profile.html">My Profile</a>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="login-btn" id="logoutBtn">
+                    Logout
+                </button>
+            </div>
+
+        </nav>
+    </header>
+
+    <main>
+
+        <section class="profile-section">
+
+            <div class="profile-heading">
+
+                <p class="tagline">LEARN TOGETHER, GROW TOGETHER</p>
+
+                <h1>My Sessions</h1>
+
+                <p>
+                    Manage your learning sessions and
+                    connect with your learning partners.
+                </p>
+
+            </div>
+
+            <div class="profile-card match-summary">
+
+                <div>
+                    <h2 id="upcomingCount">0</h2>
+                    <p>Upcoming Sessions</p>
+                </div>
+
+                <div>
+                    <h2 id="pendingCount">0</h2>
+                    <p>Pending Requests</p>
+                </div>
+
+                <div>
+                    <h2 id="completedCount">0</h2>
+                    <p>Completed Sessions</p>
+                </div>
+
+            </div>
+
+            <!-- Request a Session Section -->
+            <div class="matches-container">
+
+                <h2>Request a Session</h2>
+
+                <p>
+                    Select an accepted connection and choose
+                    one of their available time slots.
+                </p>
+
+                <div class="form-group">
+
+                    <label for="connectionSelect">
+                        Select Student
+                    </label>
+
+                    <select id="connectionSelect">
+                        <option value="">Loading connections...</option>
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="availabilitySelect">
+                        Available Time Slots
+                    </label>
+
+                    <select id="availabilitySelect" disabled>
+                        <option value="">
+                            Select a student first
+                        </option>
+                    </select>
+
+                </div>
+
+                <button class="register-btn" id="requestSessionBtn" disabled>
+                    Request Session
+                </button>
+
+                <p id="requestMessage"></p>
+
+            </div>
+
+            <!-- Received Requests -->
+            <div class="matches-container">
+
+                <h2>Received Requests</h2>
+
+                <div id="receivedRequests">
+                    <p>Loading requests...</p>
+                </div>
+
+            </div>
+
+            <!-- Upcoming Sessions -->
+            <div class="matches-container">
+
+                <h2>Upcoming Sessions</h2>
+
+                <div id="upcomingSessions">
+                    <p>Loading sessions...</p>
+                </div>
+
+            </div>
+
+            <!-- Sent Requests -->
+            <div class="matches-container">
+
+                <h2>Sent Requests</h2>
+
+                <div id="sentRequests">
+                    <p>Loading requests...</p>
+                </div>
+
+            </div>
+
+            <!-- Session History -->
+            <div class="matches-container">
+
+                <h2>Session History</h2>
+
+                <div id="sessionHistory">
+                    <p>Loading history...</p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="../js/sessions.js"></script>
+
+</body>
+
+</html>

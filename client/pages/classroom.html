@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Live Classroom | SkillBridge</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar">
+
+            <div class="logo">
+                SkillBridge
+            </div>
+
+            <div class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="sessions.html">My Sessions</a>
+                <a href="chat.html">Messages</a>
+                <a href="profile.html">My Profile</a>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="login-btn" id="logoutBtn">
+                    Logout
+                </button>
+            </div>
+
+        </nav>
+    </header>
+
+    <main>
+
+        <section class="profile-section">
+
+            <div class="profile-heading">
+
+                <p class="tagline">LEARN TOGETHER IN REAL TIME</p>
+
+                <h1>Live Learning Classroom</h1>
+
+                <p>
+                    Connect with your learning partner
+                    through a live video session.
+                </p>
+
+            </div>
+
+            <div class="profile-card">
+
+                <h2 id="classroomStatus">
+                    Preparing your classroom...
+                </h2>
+
+                <p id="sessionDetails">
+                    Please wait while we connect you.
+                </p>
+
+            </div>
+
+            <div id="jitsiContainer"></div>
+
+        </section>
+
+    </main>
+
+    <script src="../js/classroom.js"></script>
+
+</body>
+
+</html>

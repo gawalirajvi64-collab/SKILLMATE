@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Instructor Dashboard | SkillBridge</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar">
+
+            <div class="logo">SkillBridge</div>
+
+            <div class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="skills.html">My Skills</a>
+                <a href="sessions.html">My Sessions</a>
+                <a href="progress.html">My Progress</a>
+                <a href="profile.html">My Profile</a>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="login-btn" id="logoutBtn">
+                    Logout
+                </button>
+            </div>
+
+        </nav>
+    </header>
+
+    <main>
+
+        <section class="profile-section">
+
+            <div class="profile-heading">
+
+                <p class="tagline">SHARE KNOWLEDGE. INSPIRE GROWTH.</p>
+
+                <h1>Instructor Dashboard</h1>
+
+                <p>
+                    Manage your teaching activity and track
+                    your contribution to the SkillBridge community.
+                </p>
+
+            </div>
+
+            <div class="profile-card match-summary">
+
+                <div>
+                    <h2 id="teachingSkills">0</h2>
+                    <p>Skills Teaching</p>
+                </div>
+
+                <div>
+                    <h2 id="totalSessions">0</h2>
+                    <p>Total Sessions</p>
+                </div>
+
+                <div>
+                    <h2 id="completedSessions">0</h2>
+                    <p>Completed Sessions</p>
+                </div>
+
+                <div>
+                    <h2 id="learners">0</h2>
+                    <p>Students Connected</p>
+                </div>
+
+            </div>
+
+            <div class="matches-container">
+
+                <h2>Teaching Activity</h2>
+
+                <div id="teachingActivity">
+                    Loading teaching activity...
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="../js/instructor.js"></script>
+
+</body>
+
+</html>
