@@ -6,170 +6,194 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>My Sessions | SkillBridge</title>
+    <title>Learning Sessions | SkillMate</title>
 
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
 </head>
 
 <body>
 
-    <header>
-        <nav class="navbar">
+    <div id="dashboardApp">
 
-            <div class="logo">
-                SkillBridge
-            </div>
+        <main class="dashboard-main">
 
-            <div class="nav-links">
-                <a href="../index.html">Home</a>
-                <a href="skills.html">My Skills</a>
-                <a href="matches.html">Discover Matches</a>
-                <a href="connections.html">My Connections</a>
-                <a href="chat.html">Messages</a>
-                <a href="availability.html">Availability</a>
-                <a href="sessions.html">My Sessions</a>
-                <a href="profile.html">My Profile</a>
-            </div>
+            <header class="dashboard-topbar">
+                <div class="topbar-left">
+                    <button class="menu-toggle" id="menuToggle" aria-label="Open navigation">
+                        â˜°
+                    </button>
 
-            <div class="nav-buttons">
-                <button class="login-btn" id="logoutBtn">
-                    Logout
-                </button>
-            </div>
-
-        </nav>
-    </header>
-
-    <main>
-
-        <section class="profile-section">
-
-            <div class="profile-heading">
-
-                <p class="tagline">LEARN TOGETHER, GROW TOGETHER</p>
-
-                <h1>My Sessions</h1>
-
-                <p>
-                    Manage your learning sessions and
-                    connect with your learning partners.
-                </p>
-
-            </div>
-
-            <div class="profile-card match-summary">
-
-                <div>
-                    <h2 id="upcomingCount">0</h2>
-                    <p>Upcoming Sessions</p>
+                    <div>
+                        <p class="topbar-label">LEARN TOGETHER</p>
+                        <h2>Learning Sessions</h2>
+                    </div>
                 </div>
 
-                <div>
-                    <h2 id="pendingCount">0</h2>
-                    <p>Pending Requests</p>
+                <div class="topbar-actions">
+                    <a href="notifications.html" class="notification-link" aria-label="Notifications">
+                        â™§
+                    </a>
                 </div>
+            </header>
 
-                <div>
-                    <h2 id="completedCount">0</h2>
-                    <p>Completed Sessions</p>
-                </div>
+            <div class="dashboard-content sessions-page">
+
+                <section class="sessions-heading">
+                    <div>
+                        <p class="page-eyebrow">YOUR LEARNING JOURNEY</p>
+                        <h1>Learning Sessions</h1>
+                        <p>
+                            Plan your learning, connect with peers,
+                            and make progress together.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Session Statistics -->
+                <section class="session-stats">
+
+                    <div class="session-stat-card">
+                        <div class="session-stat-icon violet">â–¤</div>
+                        <div>
+                            <p>Total Sessions</p>
+                            <h3 id="totalSessions">0</h3>
+                        </div>
+                    </div>
+
+                    <div class="session-stat-card">
+                        <div class="session-stat-icon coral">â—·</div>
+                        <div>
+                            <p>Upcoming Sessions</p>
+                            <h3 id="upcomingSessions">0</h3>
+                        </div>
+                    </div>
+
+                    <div class="session-stat-card">
+                        <div class="session-stat-icon mint">âœ“</div>
+                        <div>
+                            <p>Completed Sessions</p>
+                            <h3 id="completedSessions">0</h3>
+                        </div>
+                    </div>
+
+                </section>
+
+                <!-- Book a Session -->
+                <section class="session-booking-card">
+
+                    <div class="session-section-heading">
+                        <div>
+                            <p class="page-eyebrow">GET STARTED</p>
+                            <h2>Book a Learning Session</h2>
+                            <p>
+                                Choose a connected student, select a skill,
+                                and find a suitable time.
+                            </p>
+                        </div>
+
+                        <div class="booking-icon">âœ¦</div>
+                    </div>
+
+                    <div class="session-booking-form">
+
+                        <div class="form-group">
+                            <label for="connectionSelect">Select Student</label>
+                            <select id="connectionSelect">
+                                <option value="">Select a student</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="skillSelect">Select Skill to Learn</label>
+                            <select id="skillSelect" disabled>
+                                <option value="">Select a student first</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="availabilitySelect">Available Time Slot</label>
+                            <select id="availabilitySelect" disabled>
+                                <option value="">Select a skill first</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="booking-footer">
+                        <p id="requestMessage" role="status"></p>
+
+                        <button id="requestSessionBtn" class="session-primary-btn" disabled>
+                            Request Session <span>â†’</span>
+                        </button>
+                    </div>
+
+                </section>
+
+                <!-- Received Requests -->
+                <section class="session-section">
+                    <div class="session-section-title">
+                        <div>
+                            <p class="page-eyebrow">ACTION REQUIRED</p>
+                            <h2>Received Session Requests</h2>
+                        </div>
+                    </div>
+
+                    <div id="receivedRequests" class="session-card-grid">
+                        <p>No received requests.</p>
+                    </div>
+                </section>
+
+                <!-- Upcoming Sessions -->
+                <section class="session-section">
+                    <div class="session-section-title">
+                        <div>
+                            <p class="page-eyebrow">ON YOUR CALENDAR</p>
+                            <h2>Upcoming Sessions</h2>
+                        </div>
+                    </div>
+
+                    <div id="upcomingSessionsList" class="session-card-grid">
+                        <p>No upcoming sessions.</p>
+                    </div>
+                </section>
+
+                <!-- Sent Requests -->
+                <section class="session-section">
+                    <div class="session-section-title">
+                        <div>
+                            <p class="page-eyebrow">WAITING FOR RESPONSE</p>
+                            <h2>Sent Session Requests</h2>
+                        </div>
+                    </div>
+
+                    <div id="sentRequests" class="session-card-grid">
+                        <p>No sent requests.</p>
+                    </div>
+                </section>
+
+                <!-- Session History -->
+                <section class="session-section">
+                    <div class="session-section-title">
+                        <div>
+                            <p class="page-eyebrow">YOUR ACHIEVEMENTS</p>
+                            <h2>Session History</h2>
+                        </div>
+                    </div>
+
+                    <div id="sessionHistory" class="session-card-grid">
+                        <p>No previous sessions.</p>
+                    </div>
+                </section>
 
             </div>
 
-            <!-- Request a Session Section -->
-            <div class="matches-container">
+        </main>
 
-                <h2>Request a Session</h2>
+    </div>
 
-                <p>
-                    Select an accepted connection and choose
-                    one of their available time slots.
-                </p>
-
-                <div class="form-group">
-
-                    <label for="connectionSelect">
-                        Select Student
-                    </label>
-
-                    <select id="connectionSelect">
-                        <option value="">Loading connections...</option>
-                    </select>
-
-                </div>
-
-                <div class="form-group">
-
-                    <label for="availabilitySelect">
-                        Available Time Slots
-                    </label>
-
-                    <select id="availabilitySelect" disabled>
-                        <option value="">
-                            Select a student first
-                        </option>
-                    </select>
-
-                </div>
-
-                <button class="register-btn" id="requestSessionBtn" disabled>
-                    Request Session
-                </button>
-
-                <p id="requestMessage"></p>
-
-            </div>
-
-            <!-- Received Requests -->
-            <div class="matches-container">
-
-                <h2>Received Requests</h2>
-
-                <div id="receivedRequests">
-                    <p>Loading requests...</p>
-                </div>
-
-            </div>
-
-            <!-- Upcoming Sessions -->
-            <div class="matches-container">
-
-                <h2>Upcoming Sessions</h2>
-
-                <div id="upcomingSessions">
-                    <p>Loading sessions...</p>
-                </div>
-
-            </div>
-
-            <!-- Sent Requests -->
-            <div class="matches-container">
-
-                <h2>Sent Requests</h2>
-
-                <div id="sentRequests">
-                    <p>Loading requests...</p>
-                </div>
-
-            </div>
-
-            <!-- Session History -->
-            <div class="matches-container">
-
-                <h2>Session History</h2>
-
-                <div id="sessionHistory">
-                    <p>Loading history...</p>
-                </div>
-
-            </div>
-
-        </section>
-
-    </main>
-
+    <script src="../js/dashboard.js"></script>
     <script src="../js/sessions.js"></script>
 
 </body>
-
 </html>

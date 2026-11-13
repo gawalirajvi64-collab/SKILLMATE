@@ -1,4 +1,4 @@
-
+@'
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,99 +6,98 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>My Progress | SkillBridge</title>
+    <title>My Progress | SkillMate</title>
 
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
 </head>
 
 <body>
 
-    <header>
-        <nav class="navbar">
+    <div id="dashboardApp">
 
-            <div class="logo">
-                SkillBridge
-            </div>
+        <main class="dashboard-main">
 
-            <div class="nav-links">
-                <a href="../index.html">Home</a>
-                <a href="skills.html">My Skills</a>
-                <a href="matches.html">Discover Matches</a>
-                <a href="connections.html">My Connections</a>
-                <a href="chat.html">Messages</a>
-                <a href="availability.html">Availability</a>
-                <a href="sessions.html">My Sessions</a>
-                <a href="progress.html">My Progress</a>
-                <a href="profile.html">My Profile</a>
-            </div>
+            <div class="dashboard-content progress-dashboard">
 
-            <div class="nav-buttons">
-                <button class="login-btn" id="logoutBtn">
-                    Logout
-                </button>
-            </div>
+                <section class="progress-heading">
 
-        </nav>
-    </header>
+                    <div>
+                        <p class="tagline">YOUR LEARNING JOURNEY</p>
 
-    <main>
+                        <h1>My Progress</h1>
 
-        <section class="profile-section">
+                        <p>
+                            Track your learning journey, celebrate your achievements
+                            and keep growing with every session.
+                        </p>
+                    </div>
 
-            <div class="profile-heading">
+                </section>
 
-                <p class="tagline">YOUR LEARNING JOURNEY</p>
+                <section class="progress-overview">
 
-                <h1>My Progress</h1>
+                    <div class="progress-stat-card">
+                        <div class="progress-stat-icon violet">âœ“</div>
+                        <div>
+                            <h2 id="completedSessions">0</h2>
+                            <p>Completed Sessions</p>
+                        </div>
+                    </div>
 
-                <p>
-                    Track your learning journey,
-                    celebrate your achievements
-                    and keep growing with SkillBridge.
-                </p>
+                    <div class="progress-stat-card">
+                        <div class="progress-stat-icon coral">â—·</div>
+                        <div>
+                            <h2 id="totalLearningHours">0</h2>
+                            <p>Learning Hours</p>
+                        </div>
+                    </div>
 
-            </div>
+                    <div class="progress-stat-card">
+                        <div class="progress-stat-icon mint">â†—</div>
+                        <div>
+                            <h2 id="learningSkills">0</h2>
+                            <p>Skills Learning</p>
+                        </div>
+                    </div>
 
-            <div class="profile-card match-summary">
+                    <div class="progress-stat-card">
+                        <div class="progress-stat-icon yellow">âœ¦</div>
+                        <div>
+                            <h2 id="teachingSkills">0</h2>
+                            <p>Skills Teaching</p>
+                        </div>
+                    </div>
 
-                <div>
-                    <h2 id="completedSessions">0</h2>
-                    <p>Completed Sessions</p>
-                </div>
+                </section>
 
-                <div>
-                    <h2 id="totalLearningHours">0</h2>
-                    <p>Learning Hours</p>
-                </div>
+                <section class="progress-activity-section">
 
-                <div>
-                    <h2 id="learningSkills">0</h2>
-                    <p>Skills Learning</p>
-                </div>
+                    <div class="progress-section-heading">
+                        <div>
+                            <h2>Recent Learning Activity</h2>
+                            <p>
+                                Your recently completed peer-learning sessions.
+                            </p>
+                        </div>
+                    </div>
 
-                <div>
-                    <h2 id="teachingSkills">0</h2>
-                    <p>Skills Teaching</p>
-                </div>
+                    <div id="recentActivity" class="progress-activity-list">
+                        Loading your learning activity...
+                    </div>
 
-            </div>
-
-            <div class="matches-container">
-
-                <h2>Recent Learning Activity</h2>
-
-                <div id="recentActivity">
-                    Loading your learning activity...
-                </div>
+                </section>
 
             </div>
 
-        </section>
+        </main>
 
-    </main>
+    </div>
 
+    <script src="../js/dashboard.js"></script>
     <script src="../js/progress.js"></script>
 
 </body>
 
 </html>
+'@ | Set-Content .\client\pages\progress.html

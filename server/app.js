@@ -9,6 +9,7 @@ const path = require("path");
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 const skillRoutes = require("./routes/skillRoutes");
+const skillTopicRoutes = require("./routes/skillTopicRoutes");
 const userSkillRoutes = require("./routes/userSkillRoutes");
 const matchRoutes = require("./routes/matchRoutes");
 const connectionRoutes = require("./routes/connectionRoutes");
@@ -19,6 +20,8 @@ const sessionRoutes = require("./routes/sessionRoutes");
 const classroomRoutes = require("./routes/classroomRoutes");
 const progressRoutes = require("./routes/progressRoutes");
 const feedbackRoutes = require("./routes/feedbackRoutes");
+const sessionLearningRecordRoutes = require("./routes/sessionLearningRecordRoutes");
+const assessmentRoutes = require("./routes/assessmentRoutes");
 const notificationRoutes = require("./routes/notificationRoutes");
 
 const app = express();
@@ -88,6 +91,9 @@ app.use("/api/users", userRoutes);
 // Available skills routes
 app.use("/api/skills", skillRoutes);
 
+// Skill topic routes
+app.use("/api/skill-topics", skillTopicRoutes);
+
 // Student skill management routes
 app.use("/api/user-skills", userSkillRoutes);
 
@@ -118,8 +124,14 @@ app.use("/api/progress", progressRoutes);
 // Student feedback routes
 app.use("/api/feedback", feedbackRoutes);
 
+// Session learning record routes
+app.use("/api/session-learning-records", sessionLearningRecordRoutes);
+
 // Student notification routes
 app.use("/api/notifications", notificationRoutes);
+
+// Student assessment routes
+app.use("/api/assessments", assessmentRoutes);
 
 // Health check API
 app.get("/api/health", (req, res) => {

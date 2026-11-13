@@ -12,12 +12,10 @@ const getStudentMatches = async (req, res) => {
 
     try {
 
-        // Find possible matches
         const matches = await findMatchesForStudent(
             req.user._id
         );
 
-        // Prepare match details
         const formattedMatches = await Promise.all(
 
             matches.map(async (match) => {
@@ -43,9 +41,19 @@ const getStudentMatches = async (req, res) => {
                         return {
                             skillName: skill ? skill.name : "Unknown Skill",
                             category: skill ? skill.category : "",
+
                             role: isCurrentStudentTeacher
                                 ? "You can teach"
-                                : "You can learn"
+                                : "You can learn",
+
+                            teacherAssessment: item.teacherAssessment
+                                ? {
+                                    score: item.teacherAssessment.score,
+                                    level: item.teacherAssessment.level,
+                                    totalAssessments: item.teacherAssessment.totalAssessments,
+                                    lastAssessedAt: item.teacherAssessment.lastAssessedAt
+                                }
+                                : null
                         };
 
                     })
@@ -82,7 +90,6 @@ const getStudentMatches = async (req, res) => {
 };
 
 
-// Export controller
 module.exports = {
     getStudentMatches
 };

@@ -24,6 +24,14 @@ const sessionSchema = new mongoose.Schema({
         required: true
     },
 
+    // Selected skill for this learning session
+    // Optional temporarily for historical sessions
+    skill: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Skill",
+        default: null
+    },
+
     // Selected availability slot
     availability: {
         type: mongoose.Schema.Types.ObjectId,
@@ -48,6 +56,11 @@ const sessionSchema = new mongoose.Schema({
         type: String,
         unique: true,
         sparse: true
+    },
+
+        completedAt: {
+        type: Date,
+        default: null
     },
 
     // Session request status

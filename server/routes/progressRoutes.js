@@ -6,10 +6,14 @@ const router = express.Router();
 const { protect } = require("../middleware/authMiddleware");
 
 const {
-    getProgress
+    getProgress,
+    getSkillProgress
 } = require("../controllers/progressController");
 
-// Get logged-in student's learning progress
+// Get overall learning progress
 router.get("/", protect, getProgress);
+
+// Get progress for a particular skill
+router.get("/skills/:skillId", protect, getSkillProgress);
 
 module.exports = router;

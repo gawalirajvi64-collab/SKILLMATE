@@ -1,19 +1,12 @@
-
-const authButtons = document.getElementById("authButtons");
+﻿const authButtons = document.getElementById("authButtons");
 
 // Check login status when homepage loads
 async function checkLoginStatus() {
-
     const token = localStorage.getItem("skillbridgeToken");
 
-    // If no token exists, show normal buttons
-    if (!token) {
-        return;
-    }
+    if (!token || !authButtons) return;
 
     try {
-
-        // Verify token with backend
         const response = await fetch("/api/auth/profile", {
             method: "GET",
             headers: {
@@ -27,38 +20,26 @@ async function checkLoginStatus() {
             throw new Error("Session expired");
         }
 
-        // Get student name
-        const studentName = data.user.fullName;
+        const welcomeText = document.createElement("span");
+        welcomeText.className = "home-welcome-text";
+        welcomeText.textContent = `Welcome, ${data.user.fullName}!`;
 
-        // Update navigation buttons
-        authButtons.innerHTML = `
-            <span class="welcome-text">
-                Welcome, ${studentName}!
-            </span>
+        const logoutButton = document.createElement("button");
+        logoutButton.className = "home-logout-btn";
+        logoutButton.textContent = "Logout";
 
-            <button class="login-btn" id="logoutBtn">
-                Logout
-            </button>
-        `;
-
-        // Logout functionality
-        document.getElementById("logoutBtn").addEventListener("click", () => {
-
+        logoutButton.addEventListener("click", () => {
             localStorage.removeItem("skillbridgeToken");
             localStorage.removeItem("skillbridgeUser");
-
             window.location.reload();
-
         });
 
-    } catch (error) {
+        authButtons.replaceChildren(welcomeText, logoutButton);
 
-        // Clear invalid or expired session
+    } catch (error) {
         localStorage.removeItem("skillbridgeToken");
         localStorage.removeItem("skillbridgeUser");
-
     }
 }
 
-// Run function
 checkLoginStatus();

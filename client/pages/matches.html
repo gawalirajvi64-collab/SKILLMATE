@@ -6,87 +6,128 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Discover Matches | SkillBridge</title>
+    <title>Discover Students | SkillMate</title>
 
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
 </head>
 
 <body>
 
-    <header>
-        <nav class="navbar">
+    <div id="dashboardApp">
 
-            <div class="logo">
-                SkillBridge
-            </div>
+        <div class="dashboard-main">
 
-            <div class="nav-links">
-                <a href="../index.html">Home</a>
-                <a href="skills.html">My Skills</a>
-                <a href="matches.html">Discover Matches</a>
-                <a href="connections.html">My Connections</a>
-                <a href="chat.html">Messages</a>
-                <a href="availability.html">Availability</a>
-                <a href="sessions.html">My Sessions</a>
-                <a href="profile.html">My Profile</a>
-            </div>
+            <header class="dashboard-topbar">
 
-            <div class="nav-buttons">
-                <button class="login-btn" id="logoutBtn">
-                    Logout
-                </button>
-            </div>
+                <button class="menu-toggle" id="menuToggle"
+                    aria-label="Toggle navigation">&#9776;</button>
 
-        </nav>
-    </header>
-
-    <main>
-
-        <section class="profile-section">
-
-            <div class="profile-heading">
-
-                <p class="tagline">FIND YOUR LEARNING PARTNER</p>
-
-                <h1>Discover Matches</h1>
-
-                <p>
-                    Find students who complement your skills.
-                    Teach what you know and learn something new.
-                </p>
-
-            </div>
-
-            <div class="profile-card match-summary">
-
-                <div>
-                    <h2 id="matchCount">0</h2>
-                    <p>Potential Matches Found</p>
+                <div class="topbar-title">
+                    <span>YOUR LEARNING SPACE</span>
+                    <strong>Learn. Share. Grow.</strong>
                 </div>
 
-                <div>
-                    <h2>AI-Assisted</h2>
-                    <p>Skill Compatibility Matching</p>
-                </div>
+                <a href="notifications.html"
+                    class="topbar-notification"
+                    aria-label="Notifications">&#9827;</a>
 
-            </div>
+            </header>
 
-            <div class="matches-container">
+            <main class="dashboard-content">
 
-                <h2>Recommended Students</h2>
+                <section class="matches-page">
 
-                <div id="matchesList">
-                    <p>Finding your best matches...</p>
-                </div>
+                    <div class="matches-page-heading">
+                        <div>
+                            <p class="page-eyebrow">
+                                BUILD YOUR LEARNING NETWORK
+                            </p>
 
-            </div>
+                            <h1>Discover Students</h1>
 
-        </section>
+                            <p class="page-description">
+                                Find students whose skills complement yours.
+                                Exchange knowledge and grow together.
+                            </p>
+                        </div>
+                    </div>
 
-    </main>
+                    <div class="match-summary">
 
+                        <div class="summary-item">
+                            <span class="summary-icon">&#8981;</span>
+                            <div>
+                                <h2 id="matchCount">0</h2>
+                                <p>Potential Matches Found</p>
+                            </div>
+                        </div>
+
+                        <div class="summary-item">
+                            <span class="summary-icon mint-icon">&#10033;</span>
+                            <div>
+                                <h2>Skill-Based</h2>
+                                <p>Compatibility Matching</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="matches-container">
+
+                        <div class="matches-section-heading">
+                            <div>
+                                <h2>Recommended Students</h2>
+                                <p>Students you can learn from and teach.</p>
+                            </div>
+                        </div>
+
+                        <div id="matchesList" tabindex="0" aria-label="Student recommendations carousel">
+                            <p>Finding your best matches...</p>
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <script src="../js/dashboard.js"></script>
     <script src="../js/matches.js"></script>
 
-</body>
+    <script>
+        const matchesList = document.getElementById("matchesList");
 
+        matchesList.addEventListener("keydown", (event) => {
+
+            const card = matchesList.querySelector(".match-card");
+
+            if (!card) return;
+
+            if (event.key === "ArrowRight") {
+                event.preventDefault();
+
+                matchesList.scrollBy({
+                    left: card.offsetWidth + 20,
+                    behavior: "smooth"
+                });
+            }
+
+            if (event.key === "ArrowLeft") {
+                event.preventDefault();
+
+                matchesList.scrollBy({
+                    left: -(card.offsetWidth + 20),
+                    behavior: "smooth"
+                });
+            }
+
+        });
+    </script>
+
+</body>
 </html>

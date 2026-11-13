@@ -6,110 +6,162 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Messages | SkillBridge</title>
+    <title>Messages | SkillMate</title>
 
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
 </head>
 
 <body>
 
-    <header>
-        <nav class="navbar">
+    <div id="dashboardApp">
 
-            <div class="logo">
-                SkillBridge
-            </div>
+        <div class="dashboard-main">
 
-            <div class="nav-links">
-                <a href="../index.html">Home</a>
-                <a href="matches.html">Discover Matches</a>
-                <a href="connections.html">My Connections</a>
-                <a href="chat.html">Messages</a>
-                <a href="availability.html">Availability</a>
-                <a href="sessions.html">My Sessions</a>
-                <a href="profile.html">My Profile</a>
-            </div>
+            <!-- TOP BAR -->
+            <header class="dashboard-topbar">
 
-            <div class="nav-buttons">
-                <button class="login-btn" id="logoutBtn">
-                    Logout
-                </button>
-            </div>
+                <button class="menu-toggle" id="menuToggle"
+                    aria-label="Toggle navigation">&#9776;</button>
 
-        </nav>
-    </header>
-
-    <main>
-
-        <section class="profile-section">
-
-            <div class="profile-heading">
-
-                <p class="tagline">STAY CONNECTED</p>
-
-                <h1>Messages</h1>
-
-                <p>
-                    Communicate with your learning partners
-                    and exchange knowledge in real time.
-                </p>
-
-            </div>
-
-            <div class="chat-container">
-
-                <div class="conversation-sidebar">
-
-                    <h2>Conversations</h2>
-
-                    <div id="conversationList">
-                        Loading conversations...
-                    </div>
-
+                <div class="topbar-title">
+                    <span>YOUR LEARNING SPACE</span>
+                    <strong>Learn. Share. Grow.</strong>
                 </div>
 
-                <div class="chat-window">
+                <a href="notifications.html"
+                    class="topbar-notification"
+                    aria-label="Notifications">&#9827;</a>
 
-                    <div class="chat-header" id="chatHeader">
-                        <h2>Select a conversation</h2>
-                        <p>Your messages will appear here.</p>
+            </header>
+
+
+            <!-- MAIN CONTENT -->
+            <main class="dashboard-content">
+
+                <section class="messages-page">
+
+                    <!-- PAGE HEADING -->
+                    <div class="messages-page-heading">
+
+                        <div>
+                            <p class="page-eyebrow">
+                                STAY CONNECTED
+                            </p>
+
+                            <h1>Messages</h1>
+
+                            <p class="page-description">
+                                Communicate with your learning partners
+                                and exchange knowledge in real time.
+                            </p>
+                        </div>
+
                     </div>
 
-                    <div class="messages-area" id="messagesArea">
-                        <p>Select a student to start chatting.</p>
+
+                    <!-- CHAT WORKSPACE -->
+                    <div class="chat-container">
+
+                        <!-- CONVERSATION SIDEBAR -->
+                        <aside class="conversation-sidebar">
+
+                            <div class="conversation-sidebar-heading">
+                                <div>
+                                    <h2>Conversations</h2>
+                                    <p>Your learning connections</p>
+                                </div>
+                            </div>
+
+                            <div id="conversationList">
+                                Loading conversations...
+                            </div>
+
+                        </aside>
+
+
+                        <!-- CHAT WINDOW -->
+                        <section class="chat-window">
+
+                            <!-- CHAT HEADER -->
+                            <div class="chat-header" id="chatHeader">
+
+                                <div class="chat-placeholder-avatar">
+                                    &#9993;
+                                </div>
+
+                                <div>
+                                    <h2>Select a conversation</h2>
+                                    <p>Your messages will appear here.</p>
+                                </div>
+
+                            </div>
+
+
+                            <!-- MESSAGES -->
+                            <div class="messages-area" id="messagesArea">
+
+                                <div class="empty-chat-state">
+
+                                    <div class="empty-chat-icon">
+                                        &#9993;
+                                    </div>
+
+                                    <h3>Your learning conversations</h3>
+
+                                    <p>
+                                        Select a student from your
+                                        conversations to start chatting.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- MESSAGE INPUT -->
+                            <form class="message-form" id="messageForm">
+
+                                <input
+                                    type="text"
+                                    id="messageInput"
+                                    placeholder="Write a message..."
+                                    maxlength="2000"
+                                    disabled
+                                    required
+                                >
+
+                                <button
+                                    type="submit"
+                                    class="send-message-button"
+                                    id="sendMessageBtn"
+                                    disabled
+                                >
+                                    Send &#10148;
+                                </button>
+
+                            </form>
+
+                        </section>
+
                     </div>
 
-                    <form class="message-form" id="messageForm">
+                </section>
 
-                        <input
-                            type="text"
-                            id="messageInput"
-                            placeholder="Type your message..."
-                            maxlength="2000"
-                            disabled
-                            required
-                        >
+            </main>
 
-                        <button
-                            type="submit"
-                            class="login-btn"
-                            id="sendMessageBtn"
-                            disabled
-                        >
-                            Send
-                        </button>
+        </div>
 
-                    </form>
+    </div>
 
-                </div>
 
-            </div>
+    <!-- SHARED DASHBOARD -->
+    <script src="../js/dashboard.js"></script>
 
-        </section>
-
-    </main>
-
+    <!-- SOCKET.IO -->
     <script src="/socket.io/socket.io.js"></script>
+
+    <!-- EXISTING CHAT FUNCTIONALITY -->
     <script src="../js/chat.js"></script>
 
 </body>

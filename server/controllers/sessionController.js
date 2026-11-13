@@ -2,7 +2,9 @@
 const Session = require("../models/Session");
 const Availability = require("../models/Availability");
 const Connection = require("../models/Connection");
+const UserSkill = require("../models/UserSkill");
 const Notification = require("../models/Notification");
+const mongoose = require("mongoose");
 const crypto = require("crypto");
 
 
@@ -11,15 +13,29 @@ const requestSession = async (req, res) => {
 
     try {
 
-        const { connectionId, availabilityId } = req.body;
+        const { connectionId, availabilityId, skillId } = req.body;
 
-        if (!connectionId || !availabilityId) {
+        // Validate required fields
+        if (!connectionId || !availabilityId || !skillId) {
             return res.status(400).json({
                 success: false,
-                message: "Connection and availability are required"
+                message: "Connection, availability and skill are required"
             });
         }
 
+        // Validate MongoDB IDs
+        if (
+            !mongoose.isValidObjectId(connectionId) ||
+            !mongoose.isValidObjectId(availabilityId) ||
+            !mongoose.isValidObjectId(skillId)
+        ) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid connection, availability or skill ID"
+            });
+        }
+
+        // Find an accepted connection involving the requester
         const connection = await Connection.findOne({
             _id: connectionId,
             status: "accepted",
@@ -36,11 +52,41 @@ const requestSession = async (req, res) => {
             });
         }
 
+        // The other student owns the selected availability slot
         const receiverId =
             connection.requester.toString() === req.user._id.toString()
                 ? connection.receiver
                 : connection.requester;
 
+        // Verify that the requester wants to learn this skill
+        const learnerSkill = await UserSkill.findOne({
+            user: req.user._id,
+            skill: skillId,
+            type: "learn"
+        });
+
+        if (!learnerSkill) {
+            return res.status(403).json({
+                success: false,
+                message: "You must add this skill to your learning skills first"
+            });
+        }
+
+        // Verify that the receiver can teach this skill
+        const teacherSkill = await UserSkill.findOne({
+            user: receiverId,
+            skill: skillId,
+            type: "teach"
+        });
+
+        if (!teacherSkill) {
+            return res.status(403).json({
+                success: false,
+                message: "This student has not listed this skill as a teaching skill"
+            });
+        }
+
+        // Verify availability belongs to the receiver
         const availability = await Availability.findOne({
             _id: availabilityId,
             user: receiverId,
@@ -55,6 +101,7 @@ const requestSession = async (req, res) => {
             });
         }
 
+        // Prevent duplicate requests for the same slot
         const existingSession = await Session.findOne({
             availability: availability._id,
             status: { $in: ["pending", "accepted"] }
@@ -67,10 +114,12 @@ const requestSession = async (req, res) => {
             });
         }
 
+        // Create session with the selected skill
         const session = await Session.create({
             requester: req.user._id,
             receiver: receiverId,
             connection: connection._id,
+            skill: skillId,
             availability: availability._id,
             startAt: availability.startAt,
             endAt: availability.endAt
@@ -118,6 +167,7 @@ const getSessions = async (req, res) => {
         })
         .populate("requester", "fullName college")
         .populate("receiver", "fullName college")
+        .populate("skill", "name category")
         .populate("availability")
         .sort({ createdAt: -1 });
 
@@ -272,9 +322,10 @@ const completeSession = async (req, res) => {
             });
         }
 
-        session.status = "completed";
+       session.status = "completed";
+session.completedAt = new Date();
 
-        await session.save();
+await session.save();
 
         return res.status(200).json({
             success: true,

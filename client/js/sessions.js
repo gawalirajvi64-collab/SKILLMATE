@@ -1,194 +1,115 @@
 
+const API_URL = "http://localhost:5000/api";
+
+// DOM Elements
 const receivedRequests = document.getElementById("receivedRequests");
-const upcomingSessions = document.getElementById("upcomingSessions");
+const upcomingSessionsList = document.getElementById("upcomingSessionsList");
 const sentRequests = document.getElementById("sentRequests");
 const sessionHistory = document.getElementById("sessionHistory");
 
-// Request session elements
 const connectionSelect = document.getElementById("connectionSelect");
+const skillSelect = document.getElementById("skillSelect");
 const availabilitySelect = document.getElementById("availabilitySelect");
+
 const requestSessionBtn = document.getElementById("requestSessionBtn");
 const requestMessage = document.getElementById("requestMessage");
 
+// Authentication
 const token = localStorage.getItem("skillbridgeToken");
 
 const currentUser = JSON.parse(
     localStorage.getItem("skillbridgeUser") || "null"
 );
 
-const currentUserId = currentUser
-    ? (currentUser.id || currentUser._id)
-    : null;
+// Support both id and _id formats
+const currentUserId = currentUser?.id || currentUser?._id;
 
-if (!token || !currentUser) {
-    window.location.href = "login.html";
+if (!token || !currentUser || !currentUserId) {
+    window.location.href = "../login.html";
 }
 
+// Store the logged-in student's learning skills
+const myLearningSkillIds = new Set();
 
-// Format date and time
-function formatDateTime(date) {
+// Common request headers
+function getHeaders() {
+    return {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+    };
+}
 
-    return new Date(date).toLocaleString([], {
-        dateStyle: "medium",
-        timeStyle: "short"
+// Reset dropdowns
+function resetSkillSelect(message = "Select a student first") {
+    skillSelect.innerHTML = "";
+
+    const option = document.createElement("option");
+    option.value = "";
+    option.textContent = message;
+
+    skillSelect.appendChild(option);
+    skillSelect.disabled = true;
+}
+
+function resetAvailabilitySelect(message = "Select a skill first") {
+    availabilitySelect.innerHTML = "";
+
+    const option = document.createElement("option");
+    option.value = "";
+    option.textContent = message;
+
+    availabilitySelect.appendChild(option);
+    availabilitySelect.disabled = true;
+}
+
+// Get a student's display name
+function getStudentName(student) {
+    return student?.fullName || student?.name || "Student";
+}
+
+// Load the logged-in student's learning skills
+async function loadMyLearningSkills() {
+    const response = await fetch(`${API_URL}/user-skills`, {
+        headers: getHeaders()
     });
 
-}
+    const data = await response.json();
 
-
-// Create session card
-function createSessionCard(session, student, showActions = false) {
-
-    const card = document.createElement("div");
-
-    card.className = "profile-card";
-
-    const name = document.createElement("h3");
-    name.textContent = student.fullName;
-
-    const college = document.createElement("p");
-    college.textContent = student.college;
-
-    const date = document.createElement("p");
-    date.textContent = `Date and Time: ${formatDateTime(session.startAt)}`;
-
-    const endTime = document.createElement("p");
-    endTime.textContent = `Ends: ${formatDateTime(session.endAt)}`;
-
-    const status = document.createElement("p");
-    status.textContent = `Status: ${session.status}`;
-
-    card.appendChild(name);
-    card.appendChild(college);
-    card.appendChild(date);
-    card.appendChild(endTime);
-    card.appendChild(status);
-
-
-    // Join and complete buttons
-    if (session.status === "accepted") {
-
-        const joinBtn = document.createElement("button");
-
-        joinBtn.textContent = "Join Classroom";
-        joinBtn.className = "register-btn";
-        joinBtn.style.marginTop = "15px";
-
-        joinBtn.addEventListener("click", () => {
-
-            window.location.href =
-                `classroom.html?sessionId=${session._id}`;
-
-        });
-
-        card.appendChild(joinBtn);
-
-
-        const completeBtn = document.createElement("button");
-
-        completeBtn.textContent = "Mark as Completed";
-        completeBtn.className = "login-btn";
-        completeBtn.style.marginTop = "15px";
-        completeBtn.style.marginLeft = "10px";
-
-        completeBtn.addEventListener("click", () => {
-
-            completeSession(session._id);
-
-        });
-
-        card.appendChild(completeBtn);
-
+    if (!response.ok) {
+        throw new Error(data.message || "Unable to load your skills.");
     }
 
+    myLearningSkillIds.clear();
 
-    // Accept and reject buttons
-    if (showActions) {
-
-        const acceptBtn = document.createElement("button");
-
-        acceptBtn.textContent = "Accept";
-        acceptBtn.className = "login-btn";
-
-        acceptBtn.addEventListener("click", () => {
-
-            respondToSession(session._id, "accepted");
-
-        });
-
-
-        const rejectBtn = document.createElement("button");
-
-        rejectBtn.textContent = "Reject";
-        rejectBtn.className = "login-btn";
-        rejectBtn.style.marginLeft = "10px";
-
-        rejectBtn.addEventListener("click", () => {
-
-            respondToSession(session._id, "rejected");
-
-        });
-
-        card.appendChild(acceptBtn);
-        card.appendChild(rejectBtn);
-
-    }
-
-    return card;
-
+    data.userSkills.forEach(userSkill => {
+        if (
+            userSkill.type === "learn" &&
+            userSkill.skill &&
+            userSkill.skill._id
+        ) {
+            myLearningSkillIds.add(String(userSkill.skill._id));
+        }
+    });
 }
-
 
 // Load accepted connections
 async function loadAcceptedConnections() {
+    const response = await fetch(`${API_URL}/connections`, {
+        headers: getHeaders()
+    });
 
-    try {
+    const data = await response.json();
 
-        const response = await fetch("/api/connections", {
+    if (!response.ok) {
+        throw new Error(data.message || "Unable to load connections.");
+    }
 
-            method: "GET",
+    connectionSelect.innerHTML =
+        '<option value="">Select a student</option>';
 
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-
-            throw new Error(
-                data.message || "Unable to load connections"
-            );
-
-        }
-
-        const acceptedConnections = data.connections.filter(
-            connection => connection.status === "accepted"
-        );
-
-        connectionSelect.innerHTML =
-            '<option value="">Select a student</option>';
-
-        availabilitySelect.innerHTML =
-            '<option value="">Select a student first</option>';
-
-        availabilitySelect.disabled = true;
-        requestSessionBtn.disabled = true;
-
-
-        if (acceptedConnections.length === 0) {
-
-            connectionSelect.innerHTML =
-                '<option value="">No accepted connections available</option>';
-
-            return;
-
-        }
-
-
-        acceptedConnections.forEach(connection => {
+    data.connections
+        .filter(connection => connection.status === "accepted")
+        .forEach(connection => {
 
             const otherStudent =
                 String(connection.requester._id) === String(currentUserId)
@@ -200,546 +121,442 @@ async function loadAcceptedConnections() {
             option.value = connection._id;
 
             option.textContent =
-                `${otherStudent.fullName} - ${otherStudent.college}`;
+                `${getStudentName(otherStudent)} (${otherStudent.college || "College"})`;
 
             option.dataset.studentId = otherStudent._id;
 
             connectionSelect.appendChild(option);
-
         });
 
-
-    } catch (error) {
-
-        connectionSelect.innerHTML =
-            '<option value="">Unable to load connections</option>';
-
-        requestMessage.textContent = error.message;
-
-    }
-
+    resetSkillSelect();
+    resetAvailabilitySelect();
 }
 
+// Load teaching skills of the selected connected student
+async function loadStudentTeachingSkills(connectionId) {
+    resetSkillSelect("Loading available skills...");
+    resetAvailabilitySelect();
 
-// Load selected student's available slots
-async function loadStudentAvailability(studentId) {
-
-    availabilitySelect.innerHTML =
-        '<option value="">Loading available slots...</option>';
-
-    availabilitySelect.disabled = true;
     requestSessionBtn.disabled = true;
 
-    requestMessage.textContent = "";
+    const response = await fetch(
+        `${API_URL}/user-skills/connection/${connectionId}/teaching-skills`,
+        {
+            headers: getHeaders()
+        }
+    );
 
+    const data = await response.json();
 
-    try {
+    if (!response.ok) {
+        throw new Error(data.message || "Unable to load teaching skills.");
+    }
 
-        const response = await fetch(
-            `/api/availability/student/${studentId}`,
-            {
+    skillSelect.innerHTML = "";
 
-                method: "GET",
+    const defaultOption = document.createElement("option");
+    defaultOption.value = "";
+    defaultOption.textContent = "Select a skill";
 
-                headers: {
-                    "Authorization": `Bearer ${token}`
-                }
+    skillSelect.appendChild(defaultOption);
 
-            }
+    // Only show skills that:
+    // 1. The other student can teach.
+    // 2. The logged-in student wants to learn.
+    const matchingSkills = data.teachingSkills.filter(userSkill => {
+        return (
+            userSkill.skill &&
+            myLearningSkillIds.has(String(userSkill.skill._id))
         );
+    });
 
-        const data = await response.json();
+    matchingSkills.forEach(userSkill => {
+        const option = document.createElement("option");
 
-        if (!response.ok) {
+        option.value = userSkill.skill._id;
+        option.textContent = userSkill.skill.name;
 
-            throw new Error(
-                data.message || "Unable to load available slots"
-            );
+        skillSelect.appendChild(option);
+    });
 
-        }
+    skillSelect.disabled = matchingSkills.length === 0;
 
-
-        availabilitySelect.innerHTML =
-            '<option value="">Select a time slot</option>';
-
-
-        if (data.availability.length === 0) {
-
-            availabilitySelect.innerHTML =
-                '<option value="">No available slots</option>';
-
-            return;
-
-        }
-
-
-        data.availability.forEach(slot => {
-
-            const option = document.createElement("option");
-
-            option.value = slot._id;
-
-            option.textContent =
-                `${formatDateTime(slot.startAt)} - ${formatDateTime(slot.endAt)}`;
-
-            availabilitySelect.appendChild(option);
-
-        });
-
-        availabilitySelect.disabled = false;
-
-
-    } catch (error) {
-
-        availabilitySelect.innerHTML =
-            '<option value="">Unable to load slots</option>';
-
-        requestMessage.textContent = error.message;
-
+    if (matchingSkills.length === 0) {
+        skillSelect.innerHTML =
+            '<option value="">No matching skills available</option>';
     }
-
 }
 
+// Load available time slots of the selected student
+async function loadStudentAvailability(studentId) {
+    resetAvailabilitySelect("Loading available slots...");
 
-// When student is selected
-connectionSelect.addEventListener("change", () => {
+    const response = await fetch(
+        `${API_URL}/availability/student/${studentId}`,
+        {
+            headers: getHeaders()
+        }
+    );
 
-    const selectedOption =
-        connectionSelect.options[connectionSelect.selectedIndex];
+    const data = await response.json();
 
-    const studentId = selectedOption.dataset.studentId;
+    if (!response.ok) {
+        throw new Error(data.message || "Unable to load availability.");
+    }
 
     availabilitySelect.innerHTML =
-        '<option value="">Select a student first</option>';
+        '<option value="">Select a time slot</option>';
 
-    availabilitySelect.disabled = true;
-    requestSessionBtn.disabled = true;
+    const availableSlots = data.availability || [];
 
-    requestMessage.textContent = "";
+    availableSlots.forEach(slot => {
+        const option = document.createElement("option");
 
+        option.value = slot._id;
 
-    if (studentId) {
+        const start = new Date(slot.startAt);
+        const end = new Date(slot.endAt);
 
-        loadStudentAvailability(studentId);
+        option.textContent =
+            `${start.toLocaleString()} - ${end.toLocaleTimeString()}`;
 
+        availabilitySelect.appendChild(option);
+    });
+
+    availabilitySelect.disabled = availableSlots.length === 0;
+
+    if (availableSlots.length === 0) {
+        availabilitySelect.innerHTML =
+            '<option value="">No available slots</option>';
     }
+}
 
-});
+// Create a session card
+function createSessionCard(session, student, showActions = false) {
+    const card = document.createElement("div");
+    card.className = "session-card";
 
+    const name = document.createElement("h3");
+    name.textContent = getStudentName(student);
 
-// Enable request button after selecting a slot
-availabilitySelect.addEventListener("change", () => {
+    const college = document.createElement("p");
+    college.textContent = student?.college || "College not available";
 
-    requestSessionBtn.disabled =
-        !availabilitySelect.value;
+    const skill = document.createElement("p");
+    skill.textContent = session.skill
+        ? `Skill: ${session.skill.name}`
+        : "Skill: Not recorded";
 
-});
+    const date = document.createElement("p");
+    date.textContent =
+        `Start: ${new Date(session.startAt).toLocaleString()}`;
 
+    const endDate = document.createElement("p");
+    endDate.textContent =
+        `End: ${new Date(session.endAt).toLocaleString()}`;
 
-// Send session request
-requestSessionBtn.addEventListener("click", async () => {
+    const status = document.createElement("p");
+    status.textContent = `Status: ${session.status}`;
 
-    const connectionId = connectionSelect.value;
-    const availabilityId = availabilitySelect.value;
+    card.append(name, college, skill, date, endDate, status);
 
-    if (!connectionId || !availabilityId) {
+    if (session.status === "accepted" && session.meetingRoomId) {
+        const joinButton = document.createElement("button");
 
-        requestMessage.textContent =
-            "Please select a student and time slot.";
+        joinButton.textContent = "Join Classroom";
 
-        return;
-
-    }
-
-
-    try {
-
-        requestSessionBtn.disabled = true;
-
-        requestMessage.textContent =
-            "Sending session request...";
-
-
-        const response = await fetch("/api/sessions", {
-
-            method: "POST",
-
-            headers: {
-
-                "Content-Type": "application/json",
-
-                "Authorization": `Bearer ${token}`
-
-            },
-
-            body: JSON.stringify({
-
-                connectionId,
-                availabilityId
-
-            })
-
+        joinButton.addEventListener("click", () => {
+            window.open(
+                `https://meet.jit.si/${encodeURIComponent(session.meetingRoomId)}`,
+                "_blank",
+                "noopener,noreferrer"
+            );
         });
 
-
-        const data = await response.json();
-
-        if (!response.ok) {
-
-            throw new Error(
-                data.message || "Unable to send session request"
-            );
-
-        }
-
-
-        requestMessage.textContent = data.message;
-
-        availabilitySelect.value = "";
-
-        requestSessionBtn.disabled = true;
-
-        await loadSessions();
-
-        // Refresh slots in case the selected slot was booked
-        const selectedOption =
-            connectionSelect.options[connectionSelect.selectedIndex];
-
-        const studentId = selectedOption.dataset.studentId;
-
-        if (studentId) {
-
-            await loadStudentAvailability(studentId);
-
-        }
-
-
-    } catch (error) {
-
-        requestMessage.textContent = error.message;
-
-        requestSessionBtn.disabled =
-            !availabilitySelect.value;
-
+        card.appendChild(joinButton);
     }
 
-});
+    if (session.status === "accepted") {
+        const completeButton = document.createElement("button");
 
+        completeButton.textContent = "Mark Completed";
+
+        completeButton.addEventListener("click", () => {
+            completeSession(session._id);
+        });
+
+        card.appendChild(completeButton);
+    }
+
+    if (showActions && session.status === "pending") {
+        const acceptButton = document.createElement("button");
+        acceptButton.textContent = "Accept";
+
+        acceptButton.addEventListener("click", () => {
+            respondToSession(session._id, "accepted");
+        });
+
+        const rejectButton = document.createElement("button");
+        rejectButton.textContent = "Reject";
+
+        rejectButton.addEventListener("click", () => {
+            respondToSession(session._id, "rejected");
+        });
+
+        card.append(acceptButton, rejectButton);
+    }
+
+    return card;
+}
 
 // Load all sessions
 async function loadSessions() {
+    const response = await fetch(`${API_URL}/sessions`, {
+        headers: getHeaders()
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        throw new Error(data.message || "Unable to load sessions.");
+    }
+
+    const sessions = data.sessions || [];
+
+    receivedRequests.innerHTML = "";
+    upcomingSessionsList.innerHTML = "";
+    sentRequests.innerHTML = "";
+    sessionHistory.innerHTML = "";
+
+    let receivedCount = 0;
+    let upcomingCount = 0;
+    let completedCount = 0;
+
+    sessions.forEach(session => {
+        const isRequester =
+            String(session.requester._id) === String(currentUserId);
+
+        const otherStudent = isRequester
+            ? session.receiver
+            : session.requester;
+
+        if (session.status === "completed") {
+            completedCount++;
+
+            sessionHistory.appendChild(
+                createSessionCard(session, otherStudent)
+            );
+        } else if (session.status === "pending" && !isRequester) {
+            receivedCount++;
+
+            receivedRequests.appendChild(
+                createSessionCard(session, otherStudent, true)
+            );
+        } else if (session.status === "pending" && isRequester) {
+            sentRequests.appendChild(
+                createSessionCard(session, otherStudent)
+            );
+        } else if (session.status === "accepted") {
+            upcomingCount++;
+
+            upcomingSessionsList.appendChild(
+                createSessionCard(session, otherStudent)
+            );
+        }
+    });
+
+    if (receivedCount === 0) {
+        receivedRequests.textContent = "No received requests.";
+    }
+
+    if (upcomingCount === 0) {
+        upcomingSessionsList.textContent = "No upcoming sessions.";
+    }
+
+    if (sentRequests.children.length === 0) {
+        sentRequests.textContent = "No sent requests.";
+    }
+
+    if (completedCount === 0) {
+        sessionHistory.textContent = "No previous sessions.";
+    }
+
+    document.getElementById("totalSessions").textContent =
+        sessions.length;
+
+    document.getElementById("upcomingSessions").textContent =
+        upcomingCount;
+
+    document.getElementById("completedSessions").textContent =
+        completedCount;
+}
+
+// Respond to a session request
+async function respondToSession(sessionId, status) {
+    try {
+        const response = await fetch(
+            `${API_URL}/sessions/${sessionId}/respond`,
+            {
+                method: "PUT",
+                headers: getHeaders(),
+                body: JSON.stringify({ status })
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.message || "Unable to respond.");
+        }
+
+        await loadSessions();
+
+    } catch (error) {
+        alert(error.message);
+    }
+}
+
+// Mark session as completed
+async function completeSession(sessionId) {
+    try {
+        const response = await fetch(
+            `${API_URL}/sessions/${sessionId}/complete`,
+            {
+                method: "PUT",
+                headers: getHeaders()
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.message || "Unable to complete session.");
+        }
+
+        await loadSessions();
+
+    } catch (error) {
+        alert(error.message);
+    }
+}
+
+// When student selection changes
+connectionSelect.addEventListener("change", async () => {
+    const connectionId = connectionSelect.value;
+
+    resetSkillSelect();
+    resetAvailabilitySelect();
+
+    requestSessionBtn.disabled = true;
+    requestMessage.textContent = "";
+
+    if (!connectionId) {
+        return;
+    }
 
     try {
+        await loadStudentTeachingSkills(connectionId);
+    } catch (error) {
+        resetSkillSelect("Unable to load skills");
+        requestMessage.textContent = error.message;
+    }
+});
 
-        const response = await fetch("/api/sessions", {
+// When skill selection changes
+skillSelect.addEventListener("change", async () => {
+    const selectedOption =
+        connectionSelect.options[connectionSelect.selectedIndex];
 
-            method: "GET",
+    const studentId = selectedOption?.dataset.studentId;
+    const skillId = skillSelect.value;
 
-            headers: {
+    resetAvailabilitySelect();
 
-                "Authorization": `Bearer ${token}`
+    requestSessionBtn.disabled = true;
+    requestMessage.textContent = "";
 
-            }
+    if (!skillId || !studentId) {
+        return;
+    }
 
+    try {
+        await loadStudentAvailability(studentId);
+    } catch (error) {
+        resetAvailabilitySelect("Unable to load slots");
+        requestMessage.textContent = error.message;
+    }
+});
+
+// When availability selection changes
+availabilitySelect.addEventListener("change", () => {
+    requestSessionBtn.disabled = !(
+        connectionSelect.value &&
+        skillSelect.value &&
+        availabilitySelect.value
+    );
+});
+
+// Request a session
+requestSessionBtn.addEventListener("click", async () => {
+    const connectionId = connectionSelect.value;
+    const skillId = skillSelect.value;
+    const availabilityId = availabilitySelect.value;
+
+    if (!connectionId || !skillId || !availabilityId) {
+        requestMessage.textContent =
+            "Please select a student, skill and time slot.";
+
+        return;
+    }
+
+    requestSessionBtn.disabled = true;
+    requestMessage.textContent = "Sending session request...";
+
+    try {
+        const response = await fetch(`${API_URL}/sessions`, {
+            method: "POST",
+            headers: getHeaders(),
+            body: JSON.stringify({
+                connectionId,
+                skillId,
+                availabilityId
+            })
         });
 
         const data = await response.json();
 
         if (!response.ok) {
-
-            throw new Error(
-                data.message || "Unable to load sessions"
-            );
-
+            throw new Error(data.message || "Unable to send request.");
         }
 
+        requestMessage.textContent =
+            "Session request sent successfully!";
 
-        const sessions = data.sessions;
-
-        receivedRequests.innerHTML = "";
-        upcomingSessions.innerHTML = "";
-        sentRequests.innerHTML = "";
-        sessionHistory.innerHTML = "";
-
-
-        // Filter session categories
-        const received = sessions.filter(session =>
-
-            String(session.receiver._id) === String(currentUserId) &&
-            session.status === "pending"
-
-        );
-
-
-        const sent = sessions.filter(session =>
-
-            String(session.requester._id) === String(currentUserId) &&
-            session.status === "pending"
-
-        );
-
-
-        const upcoming = sessions.filter(session =>
-
-            session.status === "accepted"
-
-        );
-
-
-        const history = sessions.filter(session =>
-
-            ["rejected", "cancelled", "completed"].includes(session.status)
-
-        );
-
-
-        // Update summary counts
-        document.getElementById("upcomingCount").textContent =
-            upcoming.length;
-
-        document.getElementById("pendingCount").textContent =
-            received.length;
-
-        document.getElementById("completedCount").textContent =
-            sessions.filter(session =>
-
-                session.status === "completed"
-
-            ).length;
-
-
-        // Received requests
-        if (received.length === 0) {
-
-            receivedRequests.textContent =
-                "No pending requests received.";
-
-        } else {
-
-            received.forEach(session => {
-
-                receivedRequests.appendChild(
-
-                    createSessionCard(
-                        session,
-                        session.requester,
-                        true
-                    )
-
-                );
-
-            });
-
-        }
-
-
-        // Upcoming sessions
-        if (upcoming.length === 0) {
-
-            upcomingSessions.textContent =
-                "No upcoming sessions.";
-
-        } else {
-
-            upcoming.forEach(session => {
-
-                const otherStudent =
-
-                    String(session.requester._id) === String(currentUserId)
-                        ? session.receiver
-                        : session.requester;
-
-
-                upcomingSessions.appendChild(
-
-                    createSessionCard(session, otherStudent)
-
-                );
-
-            });
-
-        }
-
-
-        // Sent requests
-        if (sent.length === 0) {
-
-            sentRequests.textContent =
-                "No pending requests sent.";
-
-        } else {
-
-            sent.forEach(session => {
-
-                sentRequests.appendChild(
-
-                    createSessionCard(
-                        session,
-                        session.receiver
-                    )
-
-                );
-
-            });
-
-        }
-
-
-        // Session history
-        if (history.length === 0) {
-
-            sessionHistory.textContent =
-                "No session history available.";
-
-        } else {
-
-            history.forEach(session => {
-
-                const otherStudent =
-
-                    String(session.requester._id) === String(currentUserId)
-                        ? session.receiver
-                        : session.requester;
-
-
-                sessionHistory.appendChild(
-
-                    createSessionCard(session, otherStudent)
-
-                );
-
-            });
-
-        }
-
-
-    } catch (error) {
-
-        receivedRequests.textContent = error.message;
-
-    }
-
-}
-
-
-// Accept or reject session request
-async function respondToSession(sessionId, status) {
-
-    try {
-
-        const response = await fetch(
-            `/api/sessions/${sessionId}/respond`,
-            {
-
-                method: "PUT",
-
-                headers: {
-
-                    "Content-Type": "application/json",
-
-                    "Authorization": `Bearer ${token}`
-
-                },
-
-                body: JSON.stringify({ status })
-
-            }
-        );
-
-
-        const data = await response.json();
-
-        if (!response.ok) {
-
-            throw new Error(
-                data.message || "Unable to update session"
-            );
-
-        }
-
-
-        alert(data.message);
+        availabilitySelect.value = "";
 
         await loadSessions();
 
     } catch (error) {
-
-        alert(error.message);
-
-    }
-
-}
-
-
-// Mark session as completed
-async function completeSession(sessionId) {
-
-    try {
-
-        const confirmed = confirm(
-            "Are you sure you want to mark this session as completed?"
+        requestMessage.textContent = error.message;
+    } finally {
+        requestSessionBtn.disabled = !(
+            connectionSelect.value &&
+            skillSelect.value &&
+            availabilitySelect.value
         );
-
-        if (!confirmed) {
-
-            return;
-
-        }
-
-
-        const response = await fetch(
-            `/api/sessions/${sessionId}/complete`,
-            {
-
-                method: "PUT",
-
-                headers: {
-
-                    "Authorization": `Bearer ${token}`
-
-                }
-
-            }
-        );
-
-
-        const data = await response.json();
-
-        if (!response.ok) {
-
-            throw new Error(
-                data.message || "Unable to complete session"
-            );
-
-        }
-
-
-        alert(data.message);
-
-        await loadSessions();
-
-    } catch (error) {
-
-        alert(error.message);
-
     }
-
-}
-
-
-// Logout
-document.getElementById("logoutBtn").addEventListener("click", () => {
-
-    localStorage.removeItem("skillbridgeToken");
-
-    localStorage.removeItem("skillbridgeUser");
-
-    window.location.href = "../index.html";
-
 });
 
+// Initialize page
+async function initializePage() {
+    try {
+        await loadMyLearningSkills();
+        await loadAcceptedConnections();
+        await loadSessions();
 
-// Initial page loading
-loadAcceptedConnections();
+    } catch (error) {
+        requestMessage.textContent = error.message;
+    }
+}
 
-loadSessions();
+initializePage();
