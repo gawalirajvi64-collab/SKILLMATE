@@ -6,143 +6,184 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>My Availability | SkillBridge</title>
+    <title>Availability | SkillMate</title>
 
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
 </head>
 
 <body>
 
-    <!-- Navigation Bar -->
-    <header>
-        <nav class="navbar">
+    <div id="dashboardApp">
 
-            <div class="logo">
-                SkillBridge
-            </div>
+        <div class="dashboard-main">
 
-            <div class="nav-links">
-                <a href="../index.html">Home</a>
-                <a href="skills.html">My Skills</a>
-                <a href="matches.html">Discover Matches</a>
-                <a href="connections.html">My Connections</a>
-                <a href="chat.html">Messages</a>
-                <a href="availability.html">Availability</a>
-                <a href="sessions.html">My Sessions</a>
-                <a href="profile.html">My Profile</a>
-            </div>
+            <!-- TOP BAR -->
+            <header class="dashboard-topbar">
 
-            <div class="nav-buttons">
-                <button class="login-btn" id="logoutBtn">
-                    Logout
-                </button>
-            </div>
+                <button class="menu-toggle" id="menuToggle"
+                    aria-label="Toggle navigation">&#9776;</button>
 
-        </nav>
-    </header>
-
-
-    <!-- Availability Section -->
-    <main>
-
-        <section class="profile-section">
-
-            <div class="profile-heading">
-
-                <p class="tagline">PLAN YOUR LEARNING SESSIONS</p>
-
-                <h1>My Availability</h1>
-
-                <p>
-                    Share your available time slots
-                    so your learning partners can schedule sessions with you.
-                </p>
-
-            </div>
-
-
-            <!-- Add Availability Form -->
-            <div class="profile-card">
-
-                <h2>Add Available Time</h2>
-
-                <form id="availabilityForm">
-
-                    <div class="form-group">
-
-                        <label for="availabilityDate">
-                            Select Date
-                        </label>
-
-                        <input
-                            type="date"
-                            id="availabilityDate"
-                            required
-                        >
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="startTime">
-                            Start Time
-                        </label>
-
-                        <input
-                            type="time"
-                            id="startTime"
-                            required
-                        >
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="endTime">
-                            End Time
-                        </label>
-
-                        <input
-                            type="time"
-                            id="endTime"
-                            required
-                        >
-
-                    </div>
-
-
-                    <button type="submit" class="login-btn" id="addAvailabilityBtn">
-                        Add Availability
-                    </button>
-
-                    <p id="availabilityMessage"></p>
-
-                </form>
-
-            </div>
-
-
-            <!-- Saved Availability -->
-            <div class="matches-container">
-
-                <h2>My Available Slots</h2>
-
-                <div id="availabilityList">
-
-                    <p>Loading your availability...</p>
-
+                <div class="topbar-title">
+                    <span>YOUR LEARNING SPACE</span>
+                    <strong>Learn. Share. Grow.</strong>
                 </div>
 
-            </div>
+                <a href="notifications.html"
+                    class="topbar-notification"
+                    aria-label="Notifications">&#9827;</a>
 
-        </section>
-
-    </main>
+            </header>
 
 
-    <!-- Availability JavaScript -->
+            <!-- MAIN CONTENT -->
+            <main class="dashboard-content">
+
+                <section class="availability-page">
+
+                    <!-- PAGE HEADING -->
+                    <div class="availability-page-heading">
+
+                        <div>
+                            <p class="page-eyebrow">
+                                PLAN YOUR LEARNING SESSIONS
+                            </p>
+
+                            <h1>My Availability</h1>
+
+                            <p class="page-description">
+                                Share your available time slots so your
+                                learning partners can schedule sessions
+                                with you.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <!-- ADD AVAILABILITY -->
+                    <section class="availability-form-card">
+
+                        <div class="availability-card-heading">
+
+                            <div class="availability-heading-icon">
+                                &#128197;
+                            </div>
+
+                            <div>
+                                <h2>Add Available Time</h2>
+                                <p>
+                                    Choose a date and the time
+                                    you're free to learn or teach.
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <form id="availabilityForm">
+
+                            <div class="availability-form-grid">
+
+                                <div class="form-group">
+                                    <label for="availabilityDate">
+                                        Select Date
+                                    </label>
+
+                                    <input
+                                        type="date"
+                                        id="availabilityDate"
+                                        required
+                                    >
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="startTime">
+                                        Start Time
+                                    </label>
+
+                                    <input
+                                        type="time"
+                                        id="startTime"
+                                        required
+                                    >
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="endTime">
+                                        End Time
+                                    </label>
+
+                                    <input
+                                        type="time"
+                                        id="endTime"
+                                        required
+                                    >
+                                </div>
+
+                            </div>
+
+
+                            <div class="availability-form-footer">
+
+                                <p id="availabilityMessage"
+                                    aria-live="polite"></p>
+
+                                <button
+                                    type="submit"
+                                    class="availability-submit-button"
+                                    id="addAvailabilityBtn"
+                                >
+                                    + Add Availability
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </section>
+
+
+                    <!-- SAVED SLOTS -->
+                    <section class="availability-slots-section">
+
+                        <div class="availability-slots-heading">
+
+                            <div>
+                                <h2>My Available Slots</h2>
+
+                                <p>
+                                    Manage the time slots you've shared.
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <div id="availabilityList"
+                            class="availability-list">
+
+                            <p>Loading your availability...</p>
+
+                        </div>
+
+                    </section>
+
+                </section>
+
+            </main>
+
+        </div>
+
+    </div>
+
+
+    <!-- SHARED DASHBOARD -->
+    <script src="../js/dashboard.js"></script>
+
+    <!-- AVAILABILITY FUNCTIONALITY -->
     <script src="../js/availability.js"></script>
 
 </body>

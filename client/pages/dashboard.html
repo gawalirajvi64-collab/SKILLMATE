@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Overview | SkillMate</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+
+<body>
+
+    <div id="dashboardApp">
+
+        <main class="dashboard-main">
+
+            <header class="dashboard-topbar">
+
+                <div class="topbar-left">
+
+                    <button
+                        class="menu-toggle"
+                        id="menuToggle"
+                        aria-label="Open menu">
+                        ?
+                    </button>
+
+                    <div class="topbar-title">
+                        <span>STUDENT WORKSPACE</span>
+                        <strong>Overview</strong>
+                    </div>
+
+                </div>
+
+                <div class="topbar-actions">
+
+                    <a
+                        href="notifications.html"
+                        class="topbar-notification"
+                        aria-label="Notifications">
+                        ?
+                    </a>
+
+                </div>
+
+            </header>
+
+
+            <section class="dashboard-content overview-dashboard">
+
+                <!-- Welcome Section -->
+
+                <section class="overview-welcome">
+
+                    <div>
+                        <p class="overview-eyebrow">YOUR LEARNING SPACE</p>
+
+                        <h1>
+                            Welcome back,
+                            <span id="welcomeName">Student</span>!
+                        </h1>
+
+                        <p>
+                            Keep learning, sharing your skills and growing
+                            with your college community.
+                        </p>
+                    </div>
+
+                    <a href="matches.html" class="overview-primary-btn">
+                        Discover Students
+                        <span>?</span>
+                    </a>
+
+                </section>
+
+
+                <!-- Statistics -->
+
+                <section class="overview-stats">
+
+                    <article class="overview-stat-card violet-card">
+
+                        <div class="overview-stat-top">
+                            <span>Completed Sessions</span>
+                            <span class="overview-stat-icon">?</span>
+                        </div>
+
+                        <h2 id="overviewCompletedSessions">0</h2>
+
+                        <p>Learning sessions completed</p>
+
+                    </article>
+
+
+                    <article class="overview-stat-card coral-card">
+
+                        <div class="overview-stat-top">
+                            <span>Learning Hours</span>
+                            <span class="overview-stat-icon">?</span>
+                        </div>
+
+                        <h2 id="overviewLearningHours">0</h2>
+
+                        <p>Total time spent learning</p>
+
+                    </article>
+
+
+                    <article class="overview-stat-card mint-card">
+
+                        <div class="overview-stat-top">
+                            <span>Skills Learning</span>
+                            <span class="overview-stat-icon">?</span>
+                        </div>
+
+                        <h2 id="overviewLearningSkills">0</h2>
+
+                        <p>Skills you want to learn</p>
+
+                    </article>
+
+
+                    <article class="overview-stat-card yellow-card">
+
+                        <div class="overview-stat-top">
+                            <span>Skills Teaching</span>
+                            <span class="overview-stat-icon">?</span>
+                        </div>
+
+                        <h2 id="overviewTeachingSkills">0</h2>
+
+                        <p>Skills you can teach others</p>
+
+                    </article>
+
+                </section>
+
+
+                <!-- Learning Activity Graph -->
+
+                <section class="overview-panel overview-chart-panel">
+
+                    <div class="overview-panel-heading">
+
+                        <div>
+                            <h2>Learning Activity</h2>
+
+                            <p>
+                                Track your completed learning sessions over time.
+                            </p>
+                        </div>
+
+                        <div class="overview-chart-filters">
+
+                            <button
+                                type="button"
+                                class="overview-filter active"
+                                data-period="weekly">
+                                Weekly
+                            </button>
+
+                            <button
+                                type="button"
+                                class="overview-filter"
+                                data-period="monthly">
+                                Monthly
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="overview-chart-summary">
+
+                        <div>
+                            <h3 id="chartSessionCount">0</h3>
+                            <p>Completed sessions in this period</p>
+                        </div>
+
+                        <span class="overview-chart-label">
+                            <span></span>
+                            Completed sessions
+                        </span>
+
+                    </div>
+
+
+                    <div class="overview-chart-container">
+
+                        <canvas
+                            id="learningActivityChart"
+                            aria-label="Completed learning sessions graph">
+                        </canvas>
+
+                    </div>
+
+                    <p
+                        class="overview-chart-message"
+                        id="chartMessage">
+                        Your learning activity will appear here as you
+                        complete sessions.
+                    </p>
+
+                </section>
+
+
+                <!-- Bottom Sections -->
+
+                <section class="overview-bottom-grid">
+
+                    <article class="overview-panel">
+
+                        <div class="overview-panel-heading">
+                            <div>
+                                <h2>Recent Activity</h2>
+                                <p>Your latest completed sessions</p>
+                            </div>
+
+                            <a href="progress.html">View all ?</a>
+                        </div>
+
+                        <div
+                            class="overview-recent-list"
+                            id="overviewRecentActivity">
+
+                            <p class="overview-empty">
+                                Loading your recent activity...
+                            </p>
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="overview-panel overview-quick-panel">
+
+                        <div class="overview-panel-heading">
+                            <div>
+                                <h2>Quick Access</h2>
+                                <p>Continue your learning journey</p>
+                            </div>
+                        </div>
+
+                        <a href="skills.html" class="overview-quick-link">
+                            <span class="quick-link-icon violet-bg">?</span>
+
+                            <span>
+                                <strong>Manage My Skills</strong>
+                                <small>Add skills to teach or learn</small>
+                            </span>
+
+                            <span class="quick-arrow">?</span>
+                        </a>
+
+
+                        <a href="matches.html" class="overview-quick-link">
+                            <span class="quick-link-icon coral-bg">?</span>
+
+                            <span>
+                                <strong>Discover Students</strong>
+                                <small>Find your learning partners</small>
+                            </span>
+
+                            <span class="quick-arrow">?</span>
+                        </a>
+
+
+                        <a href="sessions.html" class="overview-quick-link">
+                            <span class="quick-link-icon mint-bg">?</span>
+
+                            <span>
+                                <strong>My Sessions</strong>
+                                <small>Manage your learning sessions</small>
+                            </span>
+
+                            <span class="quick-arrow">?</span>
+                        </a>
+
+
+                        <a href="progress.html" class="overview-quick-link">
+                            <span class="quick-link-icon yellow-bg">?</span>
+
+                            <span>
+                                <strong>My Progress</strong>
+                                <small>Explore your learning progress</small>
+                            </span>
+
+                            <span class="quick-arrow">?</span>
+                        </a>
+
+                    </article>
+
+                </section>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <script src="../js/dashboard.js"></script>
+    <script src="../js/overview.js"></script>
+
+</body>
+
+</html>

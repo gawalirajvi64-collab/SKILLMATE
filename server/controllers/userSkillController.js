@@ -1,6 +1,8 @@
 
 const UserSkill = require("../models/UserSkill");
 const Skill = require("../models/Skill");
+const Connection = require("../models/Connection");
+const mongoose = require("mongoose");
 
 // Add a skill to student's profile
 const addUserSkill = async (req, res) => {
@@ -151,11 +153,74 @@ const removeUserSkill = async (req, res) => {
         });
     }
 };
+// Get teaching skills of an accepted connection
+const getConnectedStudentTeachingSkills = async (req, res) => {
+
+    try {
+
+        const { connectionId } = req.params;
+
+        // Validate connection ID
+        if (!mongoose.isValidObjectId(connectionId)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid connection ID"
+            });
+        }
+
+        // Verify accepted connection involving logged-in student
+        const connection = await Connection.findOne({
+            _id: connectionId,
+            status: "accepted",
+            $or: [
+                { requester: req.user._id },
+                { receiver: req.user._id }
+            ]
+        });
+
+        if (!connection) {
+            return res.status(403).json({
+                success: false,
+                message: "Accepted connection not found"
+            });
+        }
+
+        // Identify the other student
+        const studentId =
+            connection.requester.toString() === req.user._id.toString()
+                ? connection.receiver
+                : connection.requester;
+
+        // Fetch only the other student's teaching skills
+        const teachingSkills = await UserSkill.find({
+            user: studentId,
+            type: "teach"
+        }).populate("skill", "name category description");
+
+        return res.status(200).json({
+            success: true,
+            count: teachingSkills.length,
+            teachingSkills
+        });
+
+    } catch (error) {
+
+        console.error("Get Connected Student Teaching Skills Error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Unable to fetch teaching skills"
+        });
+
+    }
+
+};
 
 
 // Export controller functions
 module.exports = {
     addUserSkill,
     getUserSkills,
-    removeUserSkill
+    removeUserSkill,
+    getConnectedStudentTeachingSkills
 };

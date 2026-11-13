@@ -5,76 +5,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Feedback & Ratings | SkillBridge</title>
+    <title>Feedback & Ratings | SkillMate</title>
 
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
 </head>
 
 <body>
 
-    <header>
-        <nav class="navbar">
+    <div id="dashboardApp">
 
-            <div class="logo">SkillBridge</div>
+        <main class="dashboard-main">
 
-            <div class="nav-links">
-                <a href="../index.html">Home</a>
-                <a href="sessions.html">My Sessions</a>
-                <a href="progress.html">My Progress</a>
-                <a href="instructor.html">Instructor Dashboard</a>
-                <a href="profile.html">My Profile</a>
-            </div>
+            <div class="dashboard-content feedback-dashboard">
 
-            <div class="nav-buttons">
-                <button class="login-btn" id="logoutBtn">
-                    Logout
-                </button>
-            </div>
+                <section class="feedback-heading">
 
-        </nav>
-    </header>
+                    <p class="tagline">SHARE YOUR EXPERIENCE</p>
 
-    <main>
+                    <h1>Feedback & Ratings</h1>
 
-        <section class="profile-section">
+                    <p>
+                        Appreciate your learning partners and help build
+                        a better learning community through meaningful feedback.
+                    </p>
 
-            <div class="profile-heading">
+                </section>
 
-                <p class="tagline">SHARE YOUR EXPERIENCE</p>
+                <section class="feedback-section">
 
-                <h1>Feedback & Ratings</h1>
+                    <div class="feedback-section-heading">
+                        <div>
+                            <h2>Submit Feedback</h2>
+                            <p>
+                                Share your experience with students you've learned with.
+                            </p>
+                        </div>
+                    </div>
 
-                <p>
-                    Appreciate your learning partners and
-                    help build a better learning community.
-                </p>
+                    <div id="feedbackForm" class="feedback-list">
+                        Loading completed sessions...
+                    </div>
 
-            </div>
+                </section>
 
-            <div class="matches-container">
+                <section class="feedback-section">
 
-                <h2>Submit Feedback</h2>
+                    <div class="feedback-section-heading">
+                        <div>
+                            <h2>Feedback Received</h2>
+                            <p>
+                                See what your learning partners think about you.
+                            </p>
+                        </div>
+                    </div>
 
-                <div id="feedbackForm">
-                    Loading completed sessions...
-                </div>
+                    <div id="receivedFeedback" class="feedback-list">
+                        Loading your feedback...
+                    </div>
 
-            </div>
-
-            <div class="matches-container">
-
-                <h2>Feedback Received</h2>
-
-                <div id="receivedFeedback">
-                    Loading your feedback...
-                </div>
+                </section>
 
             </div>
 
-        </section>
+        </main>
 
-    </main>
+    </div>
 
+    <script src="../js/dashboard.js"></script>
     <script src="../js/feedback.js"></script>
 
 </body>

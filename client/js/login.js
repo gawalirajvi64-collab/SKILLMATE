@@ -42,7 +42,7 @@ loginForm.addEventListener("submit", async (event) => {
 
         // Redirect after login
         setTimeout(() => {
-            window.location.href = "../index.html";
+            window.location.href = "dashboard.html";
         }, 1200);
 
     } catch (error) {
@@ -53,4 +53,3 @@ loginForm.addEventListener("submit", async (event) => {
         submitButton.textContent = "Login";
     }
 });
-

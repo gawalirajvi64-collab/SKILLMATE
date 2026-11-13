@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,45 +5,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>SkillBridge | Connect. Learn. Grow.</title>
+    <title>SkillMate | Connect. Learn. Grow.</title>
 
+    <meta name="description" content="Connect with students, exchange skills, and grow together through peer-to-peer learning.">
+
+    <meta name="theme-color" content="#f8f7ff">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="SkillMate | Connect. Learn. Grow.">
+    <meta property="og:description" content="Connect with students, exchange skills, and grow together through peer-to-peer learning.">
+    <meta property="og:site_name" content="SkillMate">
+    <meta name="twitter:card" content="summary">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body>
+<body class="home-page">
 
-    <!-- Navigation Bar -->
-    <header>
-        <nav class="navbar">
+    <!-- Navigation -->
+    <header class="home-header">
+        <nav class="home-navbar">
 
-            <div class="logo">
-                SkillBridge
+            <a href="index.html" class="home-logo">
+                Skill<span>Mate</span><span class="logo-dot">.</span>
+            </a>
+
+            <div class="home-nav-links">
+                <a href="index.html" class="nav-active">Home</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#features">Features</a>
             </div>
 
-            <div class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="pages/skills.html">Explore Skills</a>
-                <a href="pages/matches.html">Discover Matches</a>
-                <a href="pages/connections.html">My Connections</a>
-                <a href="pages/chat.html">Messages</a>
-                <a href="pages/availability.html">Availability</a>
-                <a href="pages/sessions.html">My Sessions</a>
-                <a href="pages/progress.html">My Progress</a>
-                <a href="pages/instructor.html">Instructor Dashboard</a>
-                <a href="pages/feedback.html">Feedback & Ratings</a>
-                <a href="pages/notifications.html">Notifications</a>
-                <a href="pages/profile.html">My Profile</a>
-            </div>
+            <div class="home-nav-actions" id="authButtons">
 
-            <!-- Login and Registration Buttons -->
-            <div class="nav-buttons" id="authButtons">
-
-                <a href="pages/login.html" class="login-btn">
+                <a href="pages/login.html" class="home-login-btn">
                     Login
                 </a>
 
-                <a href="pages/register.html" class="register-btn">
+                <a href="pages/register.html" class="home-primary-btn">
                     Get Started
+                    <span>→</span>
                 </a>
 
             </div>
@@ -53,48 +51,323 @@
     </header>
 
 
-    <!-- Main Content -->
     <main>
 
-        <section class="hero">
+        <!-- Hero Section -->
+        <section class="home-hero">
 
-            <div class="hero-content">
+            <div class="home-hero-content">
 
-                <p class="tagline">
-                    CONNECT STUDENTS. EXCHANGE SKILLS.
-                </p>
+                <div class="home-eyebrow">
+                    <span class="eyebrow-dot"></span>
+                    LEARN FROM EACH OTHER
+                </div>
 
                 <h1>
-                    Learn Together.<br>
-                    <span>Grow Together.</span>
+                    Your skills have
+                    <span>the power</span>
+                    to connect.
                 </h1>
 
-                <p class="hero-description">
+                <p class="home-hero-description">
                     Share what you know. Learn what you love.
-                    Connect with students and turn skills into
-                    opportunities through collaborative learning.
+                    Connect with fellow students and turn everyday
+                    skills into opportunities through collaborative learning.
                 </p>
 
-                <div class="hero-buttons">
+                <div class="home-hero-actions">
 
-                    <a href="pages/register.html" class="register-btn">
-                        Get Started
+                    <a href="pages/register.html" class="home-primary-btn home-hero-btn">
+                        Start Learning
+                        <span>→</span>
                     </a>
 
-                    <a href="pages/skills.html" class="explore-btn">
-                        Explore Skills
+                    <a href="#how-it-works" class="home-secondary-btn">
+                        Discover How It Works
                     </a>
 
+                </div>
+
+                <div class="home-hero-note">
+                    <span class="note-check">✓</span>
+                    Learn together. Grow together.
+                </div>
+
+            </div>
+
+
+            <!-- Hero Visual -->
+            <div class="home-hero-visual">
+
+                <div class="visual-decoration visual-circle-one"></div>
+                <div class="visual-decoration visual-circle-two"></div>
+
+                <div class="visual-main-card">
+
+                    <div class="visual-card-top">
+                        <span class="visual-status-dot"></span>
+                        <span>YOUR LEARNING COMMUNITY</span>
+                    </div>
+
+                    <div class="visual-people">
+
+                        <div class="visual-person person-one">
+                            <div class="person-avatar avatar-one">S</div>
+                            <span>Student A</span>
+                            <small>UI/UX Design</small>
+                        </div>
+
+                        <div class="visual-connection">
+                            <span>↔</span>
+                        </div>
+
+                        <div class="visual-person person-two">
+                            <div class="person-avatar avatar-two">R</div>
+                            <span>Student B</span>
+                            <small>Python</small>
+                        </div>
+
+                    </div>
+
+                    <div class="visual-exchange">
+                        <div class="exchange-icon">✦</div>
+                        <div>
+                            <strong>Skill Exchange</strong>
+                            <p>Knowledge grows when shared.</p>
+                        </div>
+                    </div>
+
+                    <div class="visual-bottom">
+                        <span>LEARN</span>
+                        <span class="visual-bottom-line"></span>
+                        <span>CONNECT</span>
+                        <span class="visual-bottom-line"></span>
+                        <span>GROW</span>
+                    </div>
+
+                </div>
+
+                <div class="floating-card floating-card-top">
+                    <span class="floating-icon purple-icon">✦</span>
+                    <div>
+                        <strong>Share Skills</strong>
+                        <small>Teach what you know</small>
+                    </div>
+                </div>
+
+                <div class="floating-card floating-card-bottom">
+                    <span class="floating-icon coral-icon">↗</span>
+                    <div>
+                        <strong>Grow Together</strong>
+                        <small>Learn something new</small>
+                    </div>
                 </div>
 
             </div>
 
         </section>
 
+
+        <!-- How It Works -->
+        <section class="home-how-section" id="how-it-works">
+
+            <div class="home-section-heading">
+                <span class="home-section-label">HOW IT WORKS</span>
+
+                <h2>
+                    Learning made
+                    <span>collaborative.</span>
+                </h2>
+
+                <p>
+                    Getting started with peer learning is simple.
+                    Just follow three easy steps.
+                </p>
+            </div>
+
+            <div class="home-steps-grid">
+
+                <article class="home-step-card">
+                    <div class="step-number">01</div>
+                    <div class="step-icon step-purple">✦</div>
+                    <h3>Share Your Skills</h3>
+                    <p>
+                        Add the skills you can teach and the skills
+                        you want to learn.
+                    </p>
+                </article>
+
+                <article class="home-step-card">
+                    <div class="step-number">02</div>
+                    <div class="step-icon step-coral">◎</div>
+                    <h3>Find Your Partner</h3>
+                    <p>
+                        Discover students with complementary skills
+                        and connect with your learning partners.
+                    </p>
+                </article>
+
+                <article class="home-step-card">
+                    <div class="step-number">03</div>
+                    <div class="step-icon step-mint">↗</div>
+                    <h3>Learn and Grow</h3>
+                    <p>
+                        Schedule learning sessions, exchange knowledge
+                        and track your progress.
+                    </p>
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- Features -->
+        <section class="home-features-section" id="features">
+
+            <div class="home-section-heading">
+                <span class="home-section-label">WHAT YOU CAN DO</span>
+
+                <h2>
+                    Everything you need to
+                    <span>grow together.</span>
+                </h2>
+
+                <p>
+                    Explore the tools that make collaborative
+                    student learning easier.
+                </p>
+            </div>
+
+            <div class="home-features-grid">
+
+                <article class="home-feature-card">
+                    <div class="feature-icon feature-purple">✦</div>
+                    <h3>Smart Skill Matching</h3>
+                    <p>
+                        Discover students whose teaching and learning
+                        interests complement yours.
+                    </p>
+                </article>
+
+                <article class="home-feature-card">
+                    <div class="feature-icon feature-coral">◎</div>
+                    <h3>Peer Connections</h3>
+                    <p>
+                        Build meaningful learning connections
+                        with fellow students.
+                    </p>
+                </article>
+
+                <article class="home-feature-card">
+                    <div class="feature-icon feature-mint">⌁</div>
+                    <h3>Real-Time Messaging</h3>
+                    <p>
+                        Communicate with your connections
+                        and coordinate learning sessions.
+                    </p>
+                </article>
+
+                <article class="home-feature-card">
+                    <div class="feature-icon feature-yellow">◷</div>
+                    <h3>Flexible Sessions</h3>
+                    <p>
+                        Manage availability and organize
+                        peer learning sessions.
+                    </p>
+                </article>
+
+                <article class="home-feature-card">
+                    <div class="feature-icon feature-purple">↗</div>
+                    <h3>Track Your Progress</h3>
+                    <p>
+                        Keep track of completed sessions
+                        and your learning journey.
+                    </p>
+                </article>
+
+                <article class="home-feature-card">
+                    <div class="feature-icon feature-coral">✓</div>
+                    <h3>Skill Assessments</h3>
+                    <p>
+                        Assess your knowledge and monitor
+                        your skill development.
+                    </p>
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- Final CTA -->
+        <section class="home-cta-section">
+
+            <div class="home-cta-content">
+                <span class="home-section-label">YOUR LEARNING JOURNEY STARTS HERE</span>
+
+                <h2>
+                    Know something?
+                    <span>Share it.</span>
+                </h2>
+
+                <p>
+                    Want to learn something new? Find students
+                    who can help you grow.
+                </p>
+
+                <a href="pages/register.html" class="home-cta-btn">
+                    Join SkillMate
+                    <span>→</span>
+                </a>
+            </div>
+
+            <div class="home-cta-decoration">✦</div>
+
+        </section>
+
     </main>
 
 
-    <!-- JavaScript -->
+    <!-- Footer -->
+    <footer class="home-footer">
+
+        <div class="home-footer-main">
+
+            <div class="home-footer-brand">
+                <a href="index.html" class="home-logo">
+                    Skill<span>Mate</span><span class="logo-dot">.</span>
+                </a>
+
+                <p>
+                    Connect students. Exchange skills.
+                    Learn together. Grow together.
+                </p>
+            </div>
+
+            <div class="home-footer-links">
+                <strong>Explore</strong>
+                <a href="index.html">Home</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#features">Features</a>
+            </div>
+
+            <div class="home-footer-links">
+                <strong>Get Started</strong>
+                <a href="pages/login.html">Login</a>
+                <a href="pages/register.html">Create Account</a>
+            </div>
+
+        </div>
+
+        <div class="home-footer-bottom">
+            <p>© 2026 SkillMate. Learn together. Grow together.</p>
+            <p>Made for collaborative learning.</p>
+        </div>
+
+    </footer>
+
+
     <script src="js/main.js"></script>
 
 </body>

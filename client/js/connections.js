@@ -51,13 +51,13 @@ async function loadConnections() {
 
         // Separate pending received requests
         const received = connections.filter(connection =>
-            connection.receiver._id === currentUserId &&
+            String(connection.receiver._id) === String(currentUserId) &&
             connection.status === "pending"
         );
 
         // Separate pending sent requests
         const sent = connections.filter(connection =>
-            connection.requester._id === currentUserId &&
+            String(connection.requester._id) === String(currentUserId) &&
             connection.status === "pending"
         );
 
@@ -112,9 +112,28 @@ function displayConnections(connections, container, type) {
         card.className = "connection-card";
 
         // Identify the other student
-        const student = type === "received"
-            ? connection.requester
-            : connection.receiver;
+        const currentUserId = getCurrentUserId();
+
+        let student;
+
+        if (type === "received") {
+
+            student = connection.requester;
+
+        }
+        else if (type === "sent") {
+
+            student = connection.receiver;
+
+        }
+        else {
+
+            student =
+                String(connection.requester._id) === String(currentUserId)
+                    ? connection.receiver
+                    : connection.requester;
+
+        }
 
         // Student information
         const studentInfo = document.createElement("div");

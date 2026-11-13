@@ -1,0 +1,192 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Skill Assessment | SkillMate</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/assessment.css">
+</head>
+
+<body>
+
+    <div id="dashboardApp">
+
+        <main class="dashboard-main">
+
+            <header class="dashboard-topbar">
+                <div class="topbar-left">
+                    <button class="menu-toggle" id="menuToggle" aria-label="Open navigation">
+                        â˜°
+                    </button>
+
+                    <div>
+                        <p class="topbar-label">MEASURE YOUR GROWTH</p>
+                        <h2>Skill Assessment</h2>
+                    </div>
+                </div>
+
+                <div class="topbar-actions">
+                    <a href="notifications.html" class="notification-link" aria-label="Notifications">
+                        â™§
+                    </a>
+                </div>
+            </header>
+
+            <div class="dashboard-content assessment-dashboard">
+
+                <!-- Page Heading -->
+                <section class="assessment-heading">
+                    <p class="page-eyebrow">YOUR PERSONAL LEARNING JOURNEY</p>
+                    <h1>Discover Your Skill Level</h1>
+                    <p>
+                        Understand your current proficiency, measure your
+                        improvement, and identify what to learn next.
+                    </p>
+                </section>
+
+                <!-- Assessment Overview -->
+                <section class="assessment-overview">
+
+                    <div class="assessment-panel assessment-start-panel">
+
+                        <div class="assessment-panel-heading">
+                            <div>
+                                <p class="page-eyebrow">GET STARTED</p>
+                                <h2>Assess Your Skills</h2>
+                                <p class="section-description">
+                                    Choose a skill from your learning list
+                                    to begin your assessment.
+                                </p>
+                            </div>
+
+                            <div class="assessment-heading-icon">âœ¦</div>
+                        </div>
+
+                        <label for="skillSelect">Select a learning skill</label>
+
+                        <select id="skillSelect">
+                            <option value="">Loading your skills...</option>
+                        </select>
+
+                        <div id="eligibilityInfo" class="eligibility-info">
+                            Select a skill to view your assessment options.
+                        </div>
+
+                        <div class="assessment-actions">
+
+                            <button id="startInitialBtn" class="primary-btn" disabled>
+                                Start Initial Assessment â†’
+                            </button>
+
+                            <button id="startReassessmentBtn" class="primary-btn" hidden>
+                                Start Reassessment â†’
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <!-- How It Works -->
+                    <div class="assessment-panel assessment-info-panel">
+
+                        <p class="page-eyebrow">SIMPLE PROCESS</p>
+                        <h2>How It Works</h2>
+
+                        <div class="info-item">
+                            <span class="info-number">01</span>
+                            <div>
+                                <h3>Initial Assessment</h3>
+                                <p>
+                                    Measure your current understanding
+                                    of a selected skill.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <span class="info-number">02</span>
+                            <div>
+                                <h3>Learn with Peers</h3>
+                                <p>
+                                    Practise and improve through
+                                    completed peer-learning sessions.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <span class="info-number">03</span>
+                            <div>
+                                <h3>Reassessment</h3>
+                                <p>
+                                    Measure your improvement using
+                                    confirmed learning topics.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </section>
+
+                <!-- Active Assessment -->
+                <section id="assessmentArea"
+                    class="assessment-panel assessment-area"
+                    hidden>
+
+                    <div id="assessmentContent"></div>
+
+                </section>
+
+                <!-- Assessment Results -->
+                <section id="resultArea"
+                    class="assessment-panel result-area"
+                    hidden>
+
+                    <div id="resultContent"></div>
+
+                </section>
+
+                <!-- Assessment History -->
+                <section class="assessment-panel history-panel">
+
+                    <div class="section-heading-row">
+                        <div>
+                            <p class="page-eyebrow">YOUR LEARNING RECORD</p>
+                            <h2>Assessment History</h2>
+                            <p class="section-description">
+                                Review your previous attempts and resume
+                                assessments that are still in progress.
+                            </p>
+                        </div>
+
+                        <button id="refreshHistoryBtn" class="secondary-btn">
+                            â†» Refresh
+                        </button>
+                    </div>
+
+                    <div id="historyContent">
+                        Loading assessment history...
+                    </div>
+
+                    <div id="historyPagination" class="history-pagination"></div>
+
+                </section>
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <script src="../js/dashboard.js"></script>
+    <script src="../js/assessment.js"></script>
+
+</body>
+</html>

@@ -1,92 +1,150 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Register | SkillBridge</title>
+    <title>Create Account | SkillMate</title>
 
     <link rel="stylesheet" href="../css/style.css">
 </head>
 
-<body>
+<body class="auth-page">
 
-    <main class="auth-container">
+    <main class="auth-layout">
 
-        <div class="auth-card">
+        <section class="auth-intro">
+            <a href="../index.html" class="auth-logo">
+                Skill<span>Mate</span><i>.</i>
+            </a>
 
-            <h1>Join SkillBridge</h1>
+            <div class="auth-intro-content">
+                <span class="auth-eyebrow">YOUR JOURNEY STARTS HERE</span>
 
-            <p>Create your student account and start learning together.</p>
+                <h1>Share what you know. Learn what you love.</h1>
 
-            <form id="registerForm">
+                <p>
+                    Join a community of students who believe that
+                    learning becomes better when we grow together.
+                </p>
 
-                <div class="form-group">
-                    <label for="fullName">Full Name</label>
-                    <input
-                        type="text"
-                        id="fullName"
-                        placeholder="Enter your full name"
-                        required
-                    >
+                <div class="auth-highlight">
+                    <div class="auth-highlight-icon">✦</div>
+                    <div>
+                        <strong>One community. Endless possibilities.</strong>
+                        <small>Discover skills, connect with peers and learn together.</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="auth-intro-footer">
+                CONNECT. LEARN. GROW.
+            </div>
+        </section>
+
+        <section class="auth-form-section">
+
+            <div class="auth-card">
+
+                <div class="auth-card-heading">
+                    <span class="auth-mobile-logo">Skill<span>Mate</span><i>.</i></span>
+
+                    <span class="auth-form-label">CREATE YOUR ACCOUNT</span>
+
+                    <h2>Join SkillMate!</h2>
+
+                    <p>Create your student account and start learning together.</p>
                 </div>
 
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input
-                        type="email"
-                        id="email"
-                        placeholder="Enter your email"
-                        required
-                    >
+                <form id="registerForm">
+
+                    <div class="auth-form-group">
+                        <label for="fullName">Full Name</label>
+
+                        <input
+                            type="text"
+                            id="fullName"
+                            placeholder="Enter your full name"
+                            autocomplete="name"
+                            required
+                        >
+                    </div>
+
+                    <div class="auth-form-group">
+                        <label for="email">Email Address</label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="Enter your email"
+                            autocomplete="email"
+                            required
+                        >
+                    </div>
+
+                    <div class="auth-form-group">
+                        <label for="college">College Name</label>
+
+                        <input
+                            type="text"
+                            id="college"
+                            placeholder="Enter your college name"
+                            autocomplete="organization"
+                            required
+                        >
+                    </div>
+
+                    <div class="auth-form-group">
+                        <label for="password">Password</label>
+
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Create a password (minimum 8 characters)"
+                            minlength="8"
+                            autocomplete="new-password"
+                            required
+                        >
+                    </div>
+
+                    <div class="auth-form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            placeholder="Confirm your password"
+                            autocomplete="new-password"
+                            required
+                        >
+                    </div>
+
+                    <button type="submit" class="auth-submit-btn">
+                        Create Account <span>→</span>
+                    </button>
+
+                    <p id="message" class="auth-message"></p>
+
+                </form>
+
+                <div class="auth-divider">
+                    <span></span>
+                    <small>ALREADY A MEMBER?</small>
+                    <span></span>
                 </div>
 
-                <div class="form-group">
-                    <label for="college">College Name</label>
-                    <input
-                        type="text"
-                        id="college"
-                        placeholder="Enter your college name"
-                        required
-                    >
-                </div>
+                <p class="auth-link">
+                    Already have an account?
+                    <a href="login.html">Login</a>
+                </p>
 
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input
-                        type="password"
-                        id="password"
-                        placeholder="Create a password (minimum 8 characters)"
-                        minlength="8"
-                        required
-                    >
-                </div>
+                <a href="../index.html" class="auth-back-link">
+                    ← Back to Homepage
+                </a>
 
-                <div class="form-group">
-                    <label for="confirmPassword">Confirm Password</label>
-                    <input
-                        type="password"
-                        id="confirmPassword"
-                        placeholder="Confirm your password"
-                        required
-                    >
-                </div>
+            </div>
 
-                <button type="submit" class="register-btn">
-                    Create Account
-                </button>
-
-                <p id="message"></p>
-
-            </form>
-
-            <p class="auth-link">
-                Already have an account?
-                <a href="login.html">Login</a>
-            </p>
-
-        </div>
+        </section>
 
     </main>
 
