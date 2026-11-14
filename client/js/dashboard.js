@@ -18,7 +18,7 @@
         { label: "Discover Students", href: "matches.html", icon: "⌕" },
         { label: "Connections", href: "connections.html", icon: "♧" },
         { label: "Messages", href: "chat.html", icon: "▤" },
-        { label: "Notifications", href: "notifications.html", icon: "♧" },
+        { label: "Notifications", href: "notifications.html", icon: '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg>' },
         { label: "Availability", href: "availability.html", icon: "◷" },
         { label: "My Sessions", href: "sessions.html", icon: "▣" },
         { label: "Skill Assessment", href: "assessment.html", icon: "✓" },
@@ -73,7 +73,7 @@
             <div class="topbar-actions">
                 <a href="notifications.html"
                    class="topbar-notification"
-                   aria-label="Notifications">♧</a>
+                   aria-label="Notifications"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg></a>
             </div>
         `;
 
@@ -93,6 +93,51 @@
         topbar.appendChild(topbarActions);
     }
 
+    // Keep the same header layout and notification icon on every student page.
+    const notificationBellSvg = `<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg>`;
+
+    const menuIconSvg = `<svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>`;
+
+    const profileArrowSvg = `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg>`;
+
+    // Standardize the mobile menu icon.
+    const menuButton = topbar.querySelector("#menuToggle");
+    if (menuButton) {
+        menuButton.innerHTML = menuIconSvg;
+    }
+
+    // Keep notifications inside the right-side actions container.
+    let notificationLink = topbar.querySelector(
+        'a[aria-label="Notifications"], .topbar-notification, .notification-link'
+    );
+
+    if (!notificationLink) {
+        notificationLink = document.createElement("a");
+    }
+
+    notificationLink.href = "notifications.html";
+    notificationLink.className = "topbar-notification";
+    notificationLink.setAttribute("aria-label", "Notifications");
+    notificationLink.innerHTML = notificationBellSvg;
+
+    topbarActions.appendChild(notificationLink);
+
+    // Use the correct title on pages where the header is generated.
+    const generatedPageHeaders = {
+        "profile.html": ["MY ACCOUNT", "My Profile"],
+        "progress.html": ["YOUR LEARNING JOURNEY", "My Progress"],
+        "feedback.html": ["YOUR LEARNING COMMUNITY", "Feedback & Ratings"]
+    };
+
+    const pageHeader = generatedPageHeaders[currentPage];
+
+    if (pageHeader) {
+        const eyebrow = topbar.querySelector(".topbar-title span");
+        const heading = topbar.querySelector(".topbar-title strong, .topbar-title h2");
+
+        if (eyebrow) eyebrow.textContent = pageHeader[0];
+        if (heading) heading.textContent = pageHeader[1];
+    }
     const profileMenu = document.createElement("div");
     profileMenu.className = "topbar-profile";
 
@@ -106,7 +151,7 @@
             aria-controls="profileDropdown"
         >
             <span class="topbar-avatar" id="topbarAvatar">S</span>
-            <span class="profile-menu-arrow">⌄</span>
+            <span class="profile-menu-arrow">${profileArrowSvg}</span>
         </button>
 
         <div class="profile-dropdown" id="profileDropdown" hidden>
